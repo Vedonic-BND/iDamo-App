@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView"
+        parent="Theme.MaterialComponents">
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+
+    <style name="appbar_title"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="fontFamily">@font/bevan</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:shadowColor">@color/text_shadow</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+    <style name="Widget.Toolbar"
+        parent="Widget.Design.AppBarLayout">
+        <item name="android:shadowColor">@color/text_shadow</item>
+        <item name="android:shadowDx">-1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/bevan</item>
+    </style>
+
+
+</resources>

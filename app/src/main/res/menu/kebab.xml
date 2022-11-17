@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/kebab_btn"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="@string/kebab_btn"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item android:id="@+id/kebab_settings"
+                android:title="@string/settings"/>
+            <item android:id="@+id/kebab_rate"
+                android:title="@string/rate_idamo"/>
+            <item android:id="@+id/kebab_share"
+                android:title="@string/share_idamo"/>
+            <item android:id="@+id/kebab_Tutorial"
+                android:title="@string/tutorial"/>
+            <item android:id="@+id/logout"
+                android:title="@string/logout"/>
+        </menu>
+
+    </item>
+</menu>

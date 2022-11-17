@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1094887214290",
+    "firebase_url": "https://idamo-4ea09-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "idamo-4ea09",
+    "storage_bucket": "idamo-4ea09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094887214290:android:1111d0b432f2dad048b10b",
+        "android_client_info": {
+          "package_name": "com.android.vedonic.idamo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094887214290-tqjgl0s68o35tko4s0trdo7duign91ht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.vedonic.idamo",
+            "certificate_hash": "021338ca70119aa1b3e23a21bb4666e28f097f67"
+          }
+        },
+        {
+          "client_id": "1094887214290-k2d6anue73e3i05v3nic6i8trsqhdi1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATGP6LBWLUAsXeo9wtOG_ceSFB3SNUuEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094887214290-k2d6anue73e3i05v3nic6i8trsqhdi1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

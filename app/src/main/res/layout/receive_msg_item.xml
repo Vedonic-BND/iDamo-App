@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="start"
+    android:layout_gravity="start"
+    >
+
+    <LinearLayout
+        android:id="@+id/mlinear"
+        android:orientation="vertical"
+        android:background="@drawable/receive"
+        android:padding="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test message"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textAlignment="textStart"
+            android:textStyle="bold|normal"/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:src="@drawable/add_image_icon"
+        android:scaleType="centerCrop"
+        android:layout_width="300dp"
+        android:layout_height="200dp"/>
+
+</LinearLayout>

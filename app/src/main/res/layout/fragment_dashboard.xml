@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/dashboard_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="10dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/appbar_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/kebab"/>
+
+
+    <ScrollView
+        android:id="@+id/dashboard_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_appbar"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="105dp"
+            tools:context=".fragments.DashboardFragment">
+
+            <TextView
+                android:id="@+id/container1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:fontFamily="@font/allerta_stencil"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/heal_your_plants"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_Container_View"
+                android:layout_width="330dp"
+                android:layout_height="180dp"
+                android:background="@drawable/shadow"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container1_title" />
+
+            <TextView
+                android:id="@+id/container2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:fontFamily="@font/allerta_stencil"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/weather"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_Container_View"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_Container_View_2"
+                android:layout_width="330dp"
+                android:layout_height="180dp"
+                android:background="@drawable/shadow"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container2_title"
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_constraintTop_toBottomOf="@id/fragment_Container_View_2"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/take_a_picture_btn"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/take_a_picture"
+        android:textColor="@color/white"
+        android:background="@drawable/plain_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/upload_btn" />
+
+    <Button
+        android:id="@+id/upload_btn"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/upload"
+        android:textColor="@color/white"
+        android:background="@drawable/plain_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/take_a_picture_btn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
