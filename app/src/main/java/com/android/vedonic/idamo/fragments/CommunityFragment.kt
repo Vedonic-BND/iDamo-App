@@ -32,9 +32,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import android.view.ViewGroup
-
-
-
+import kotlinx.android.synthetic.main.fragment_you.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,6 +52,8 @@ class CommunityFragment : Fragment() {
 
     private var postAdapter: PostAdapter? = null
     private var mPost: MutableList<Post>? = null
+
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class CommunityFragment : Fragment() {
             activity?.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
         }
 
-        var recyclerView: RecyclerView? = null
+
         recyclerView = v.findViewById(R.id.communityRecyclerView)
 
         val linearLayoutManager = LinearLayoutManager(context)
@@ -105,11 +105,19 @@ class CommunityFragment : Fragment() {
         val postRef = FirebaseFirestore.getInstance().collection("Posts")
 
         postRef.addSnapshotListener { snapshot, exception ->
-            val postList = snapshot!!.toObjects(Post::class.java)
+            val size = snapshot?.size()
 
+            if ( size == 0 ) {
+                noPost.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+            } else {
+                noPost.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+            val postList = snapshot!!.toObjects(Post::class.java)
             mPost?.clear()
             mPost?.addAll(postList)
             postAdapter?.notifyDataSetChanged()
+            }
         }
 
 

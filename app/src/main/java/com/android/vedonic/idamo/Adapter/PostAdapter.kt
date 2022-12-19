@@ -93,13 +93,13 @@ class PostAdapter (private val mContext: Context,
             // Load default image
             holder.postImage.setImageResource(R.drawable.add_image_icon)
         }else{
-            //Picasso.get().load(post.postimage).into(holder.postImage)
-
-            val options: RequestOptions = RequestOptions()
-                .placeholder(com.android.vedonic.idamo.R.drawable.add_image_icon)
-                .error(com.android.vedonic.idamo.R.drawable.add_image_icon)
-
-            Glide.with(mContext).load(post.postimage).apply(options).into(holder.postImage)
+            Picasso.get().load(post.postimage).into(holder.postImage)
+//
+//            val options: RequestOptions = RequestOptions()
+//                .placeholder(com.android.vedonic.idamo.R.drawable.add_image_icon)
+//                .error(com.android.vedonic.idamo.R.drawable.add_image_icon)
+//
+//            Glide.with(mContext).load(post.postimage).apply(options).into(holder.postImage)
         }
 
         publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.publisher)

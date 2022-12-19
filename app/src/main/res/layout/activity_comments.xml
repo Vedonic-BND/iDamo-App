@@ -23,8 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-
-
     <RelativeLayout
         android:id="@+id/relLayout"
         android:layout_width="match_parent"

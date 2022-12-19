@@ -2,9 +2,12 @@ package com.android.vedonic.idamo
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +60,9 @@ class MyMessages : AppCompatActivity() {
         binding = ActivityMyMessagesBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
 
+
+        setSupportActionBar(binding!!.messagesappbar)
+
         firebaseUser = FirebaseAuth.getInstance().currentUser
         firestoreDb = FirebaseFirestore.getInstance()
 
@@ -71,32 +77,39 @@ class MyMessages : AppCompatActivity() {
             this.userName = pref.getString("userName", "none").toString()
         }
 
-        Log.i("ewan ko", "1st eto")
         userAdapter = UserChatAdapter(this, mUser as java.util.ArrayList<User>)
 
-        Log.i("ewan ko 2", "2st eto")
         binding!!.messageRecycler.layoutManager = LinearLayoutManager(this@MyMessages)
         binding!!.messageRecycler.adapter = userAdapter
-        Log.i("ewan ko 3", "3st eto")
 
         getPerson()
-
-//        receiverUid = intent.getStringExtra("receiverUid")
-//        receiverName = intent.getStringExtra("receiverName")
-//        receiverProfile = intent.getStringExtra("receiverProfile")
-//        Log.i("receiverUid", receiverUid.toString())
-//        Log.i("receiverName", receiverName.toString())
-//        Log.i("receiverProfile", receiverProfile.toString())
 
 
         senderRoom = firebaseUser!!.uid + receiverUid
 
 
-
-
         mUser?.clear()
-        //myMessages()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.search, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.search_bar){
+            //do action here
+            Toast.makeText(applicationContext, "Search Here", Toast.LENGTH_SHORT).show()
+            val intent = Intent(applicationContext, SearchActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_down,R.anim.slide_out_down)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -107,7 +120,7 @@ class MyMessages : AppCompatActivity() {
         FirebaseFirestore.getInstance().collection("profile").document(currentId.toString()).collection("messaged")
             .get().addOnSuccessListener { it ->
                 val size = it.size()
-                if (size.toString() != null) {
+                if (size != 0) {
                     binding!!.messageRecycler.visibility = View.VISIBLE
                     binding!!.noMessages.visibility = View.INVISIBLE
 
@@ -123,13 +136,11 @@ class MyMessages : AppCompatActivity() {
                     }
 
                     for ((counter,i) in userID.withIndex()) {
-                        Log.d("documentID", i.toString())
 
                         database.collection("profile").document(i.toString())
                             .addSnapshotListener { snapshot, error ->
-                                val userls = snapshot!!.toObject(User::class.java)
-                                Log.d("userls", userls.toString())
-                                mUser?.add(userls!!)
+                                val userList = snapshot!!.toObject(User::class.java)
+                                mUser?.add(userList!!)
                                 userAdapter?.notifyDataSetChanged()
                             }
                     }
@@ -140,68 +151,10 @@ class MyMessages : AppCompatActivity() {
                     Toast.makeText(this, "Error loading messages!", Toast.LENGTH_SHORT).show()
                     binding!!.messageRecycler.visibility = View.INVISIBLE
                     binding!!.noMessages.visibility = View.VISIBLE
-                    }
+                }
 
 
-
-
-//                    database.collection("profile").document(currentId.toString()).collection("messaged")
-//                        .document(i.toString()).addSnapshotListener {snapshot, exception ->
-//                            val status = snapshot?.getString("Messaged")
-//                            Log.i("ewan ko", i.toString())
-//                            if (status.toString() == "Yes") {
-//                                binding!!.messageRecycler.visibility = View.VISIBLE
-//                            }else {
-//                                binding!!.messageRecycler.visibility = View.INVISIBLE
-//                            }
-//                        }
-//                }
-
-                //set number of likes per post in array
-//                var snapsize = 0
-//                for ((count, i) in numberOfLikes.withIndex()) {
-//                    FirebaseFirestore.getInstance().collection("Posts")
-//                        .document(postIdArr[count].toString())
-//                        .collection("Likes").whereEqualTo("liked", true).get()
-//                        .addOnSuccessListener { snap ->
-//                            snapsize = snap.size()
-//                            Log.d(postIdArr[count].toString(), snapsize.toString())
-//                            numberOfLikes[count] = snapsize.toString()
-//                            total += snapsize
-//                            Log.d("numberOfLikes[counter]", numberOfLikes[count].toString())
-//                            Log.i("total", total.toString())
-//                            leaflet_count.text = "$total"
-//                        }
-//                }
             }
-
-
-
-
-
-
-        val currentID = FirebaseAuth.getInstance().uid
-
-
     }
-
-//
-//    @SuppressLint("NotifyDataSetChanged")
-//    private fun myMessages() {
-//
-//        val currentID = FirebaseAuth.getInstance().uid
-//        val database = FirebaseFirestore.getInstance()
-//        database.collection("profile").document(currentID.toString()).collection("messaged")
-//            .addSnapshotListener {snapshot, exception ->
-//                Log.i("snapshot", snapshot.toString())
-//
-//                val userls = snapshot!!.toObjects(User::class.java)
-//                mUser?.clear()
-//                mUser?.addAll(userls)
-//                userAdapter?.notifyDataSetChanged()
-//            }
-//
-//    }
-
 
 }

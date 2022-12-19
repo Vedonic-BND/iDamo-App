@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragments.DashboardFragment"
+    >
 
 
     <androidx.appcompat.widget.Toolbar
@@ -24,8 +26,9 @@
         app:menu="@menu/kebab"/>
 
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/dashboard_scroll"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/dashboard_appbar"
@@ -60,7 +63,9 @@
                 android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/container1_title" />
+                app:layout_constraintTop_toBottomOf="@+id/container1_title"
+                android:name="com.android.vedonic.idamo.fragments.hyp_container"
+                tools:layout="@layout/fragment_hyp_container" />
 
             <TextView
                 android:id="@+id/container2_title"
@@ -81,21 +86,24 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_Container_View_2"
                 android:layout_width="330dp"
-                android:layout_height="180dp"
+                android:layout_height="150dp"
                 android:background="@drawable/shadow"
                 android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/container2_title"
+                android:name="com.android.vedonic.idamo.fragments.weather_container"
+                tools:layout="@layout/fragment_weather_container" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_Container_View_2"
                 />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                app:layout_constraintTop_toBottomOf="@id/fragment_Container_View_2"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <Button
         android:id="@+id/take_a_picture_btn"

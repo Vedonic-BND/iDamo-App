@@ -1,17 +1,22 @@
 package com.android.vedonic.idamo
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.vedonic.idamo.Adapter.MessageAdapter
 import com.android.vedonic.idamo.databinding.ActivityChatBinding
@@ -21,6 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_chat.*
+import org.checkerframework.checker.units.qual.A
+import java.io.ByteArrayOutputStream
+import java.io.Console
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -38,6 +46,9 @@ class ChatActivity : AppCompatActivity() {
     var receiverUid: String? = null
     var name: String? = null
     var profile: String? = null
+
+    private val IMAGE_CAPTURE_CODE: Int = 1001
+    private val IMAGE_GALLERY_CODE: Int = 1002
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,9 +98,10 @@ class ChatActivity : AppCompatActivity() {
         messages?.clear()
         getMessage()
 
-
+        binding!!.chatRecycler.setHasFixedSize(true)
         binding!!.chatRecycler.layoutManager = LinearLayoutManager(this@ChatActivity)
         binding!!.chatRecycler.adapter = adapter
+
 
 
         binding!!.sendBtn.setOnClickListener {
@@ -98,7 +110,7 @@ class ChatActivity : AppCompatActivity() {
             }, 0)
 
             if (TextUtils.isEmpty(binding!!.messageBox.text.toString())) {
-                Toast.makeText(this, "No comment added.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No message added.", Toast.LENGTH_SHORT).show()
             }else{
                 putMessage()
                 binding!!.messageBox.setText("")
@@ -106,10 +118,17 @@ class ChatActivity : AppCompatActivity() {
         }
 
         binding!!.attachment.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "image/*"
-            startActivityForResult(intent, 25)
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, IMAGE_GALLERY_CODE)
+        }
+
+        binding!!.picture.setOnClickListener {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            try {
+                startActivityForResult(takePictureIntent, IMAGE_CAPTURE_CODE)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
 
         val handler = Handler()
@@ -143,6 +162,7 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
     }
+
 
     private fun putMessage() {
         val messageTxt:String = binding!!.messageBox.text.toString()
@@ -197,7 +217,15 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 25) {
+        if (requestCode == 1001) {
+            openCamera(requestCode, resultCode, data)
+        }else if(requestCode == 1002){
+            openGallery(requestCode, resultCode, data)
+        }
+    }
+
+    private fun openGallery(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == RESULT_OK) {
             if (data != null){
                 if (data.data != null){
                     val selectedImage = data.data
@@ -252,6 +280,74 @@ class ChatActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun openCamera(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK) {
+            if (data != null){
+                val imageBitmap = data.extras?.get("data") as Bitmap
+                val stream = ByteArrayOutputStream()
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val resolver = applicationContext.contentResolver
+                val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap, "Title", null)
+
+                val imageUri = Uri.parse(path)
+                val calendar = Calendar.getInstance()
+                val ref = storage?.reference?.child("chats")?.child(calendar.timeInMillis.toString()+"")
+                dialog!!.show()
+
+                ref!!.putFile(imageUri).addOnCompleteListener { task ->
+                    dialog!!.dismiss()
+                    if (task.isSuccessful){
+                        ref.downloadUrl.addOnSuccessListener { uri ->
+                            val filePath = uri.toString()
+                            val date = Date()
+
+                            binding!!.messageBox.setText("")
+
+                            val messageID = date.time
+
+                            val messageImageMap = HashMap<String, Any>()
+                            messageImageMap["messageid"] = messageID.toString()
+                            messageImageMap["message"] = "photo"
+                            messageImageMap["imageUrl"] = filePath
+                            messageImageMap["senderid"] = senderUid.toString()
+                            messageImageMap["timeStamp"] = date.time
+
+                            database!!.collection("chats").document(senderRoom.toString())
+                                .collection("message")
+                                .document(messageID.toString())
+                                .set(messageImageMap).addOnSuccessListener {
+                                    database!!.collection("chats")
+                                        .document(receiverRoom.toString())
+                                        .collection("message")
+                                        .document(messageID.toString())
+                                        .set(messageImageMap).addOnSuccessListener {  }
+                                }
+
+
+                            val lastMsgObj = HashMap<String, Any>()
+                            lastMsgObj["lastMsg"] = "Photo"
+                            lastMsgObj["lastMsgTime"] = date.time
+
+                            database!!.collection("chats").document(senderRoom.toString()).set(lastMsgObj)
+                            database!!.collection("chats").document(receiverRoom.toString()).set(lastMsgObj)
+
+                            val currentID = FirebaseAuth.getInstance().uid
+                            val mesMap = HashMap<String, Any> ()
+                            database!!.collection("profile").document(currentID.toString()).collection("messaged")
+                                .document(receiverUid.toString()).set(mesMap)
+                            database!!.collection("profile").document(receiverUid.toString()).collection("messaged")
+                                .document(currentID.toString()).set(mesMap)
+
+                        }
+                    }
+                }
+
             }
         }
     }

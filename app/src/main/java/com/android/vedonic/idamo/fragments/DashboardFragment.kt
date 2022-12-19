@@ -1,5 +1,6 @@
 package com.android.vedonic.idamo.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
@@ -209,6 +210,7 @@ class DashboardFragment : Fragment() {
             }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun putFragmentInView(fragment: Fragment){
         if (fragment != null){
             val transaction = childFragmentManager.beginTransaction()

@@ -154,7 +154,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:padding="5dp"
-                    android:src="@drawable/ic_attachment"
+                    android:src="@drawable/add_image_icon"
                     app:tint="@color/colorAccent" />
 
                 <ImageView

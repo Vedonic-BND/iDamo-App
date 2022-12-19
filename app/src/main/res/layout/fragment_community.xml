@@ -31,41 +31,48 @@
         app:menu="@menu/community_appbar"
         app:theme="@style/AppSearchView"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         >
 
-        <ScrollView
-            android:id="@+id/community_scroll"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="127dp"
-            android:scrollbarStyle="outsideOverlay"
-            tools:ignore="MissingConstraints">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/noPost"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp">
+                android:layout_height="200dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:text="No Post"
+                android:textColor="@color/grey_font"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/communityRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/community_appbar"
-                    tools:ignore="NotSibling">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/communityRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                >
 
-                </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-    </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/ask_community_btn"

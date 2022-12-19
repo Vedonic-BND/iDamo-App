@@ -39,8 +39,11 @@
         android:layout_marginTop="20dp"
         android:visibility="gone"
         android:src="@drawable/add_image_icon"
-        android:scaleType="centerCrop"
+        android:scaleType="fitEnd"
+        android:maxWidth="300dp"
         android:layout_width="300dp"
-        android:layout_height="200dp"/>
+        android:maxHeight="300dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"/>
 
 </LinearLayout>

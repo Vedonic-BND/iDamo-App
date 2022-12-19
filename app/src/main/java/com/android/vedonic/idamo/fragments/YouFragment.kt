@@ -57,8 +57,8 @@ class YouFragment : Fragment() {
     private lateinit var firebaseUser: FirebaseUser
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var photoAdapter: PostAdapter
-    private lateinit var myPhotoList: MutableList<Post>
+    private lateinit var postAdapter: PostAdapter
+    private lateinit var mypostList: MutableList<Post>
 
     private lateinit var userName: String
     private lateinit var profileImage: String
@@ -105,9 +105,9 @@ class YouFragment : Fragment() {
         lLManager.stackFromEnd = true
         recyclerView.layoutManager = lLManager
 
-        myPhotoList = ArrayList()
-        photoAdapter = PostAdapter(requireActivity(), myPhotoList as ArrayList<Post>)
-        recyclerView.adapter = photoAdapter
+        mypostList = ArrayList()
+        postAdapter = PostAdapter(requireActivity(), mypostList as ArrayList<Post>)
+        recyclerView.adapter = postAdapter
 
         edit_btn.setOnClickListener{
             val intent = Intent(context, Edit_user_details_page::class.java)
@@ -220,24 +220,19 @@ class YouFragment : Fragment() {
         val postRef = FirebaseFirestore.getInstance().collection("Posts")
 
         postRef.whereEqualTo("publisher", profileId).get().addOnSuccessListener {
-            //noPost.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
-            val postList = it!!.toObjects(Post::class.java)
-            myPhotoList.clear()
-            myPhotoList.addAll(postList)
-            photoAdapter.notifyDataSetChanged()
+            val size = it.size()
+            if ( size == 0 ) {
+                noPost.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+            } else {
+                noPost.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                val postList = it!!.toObjects(Post::class.java)
+                mypostList.clear()
+                mypostList.addAll(postList)
+                postAdapter.notifyDataSetChanged()
+            }
         }
-
-//        postRef.addSnapshotListener { snapshot, exception ->
-//            val postList = snapshot!!.toObjects(Post::class.java)
-//            Log.e("You Frag", snapshot.toString())
-//            Log.e("You Frag", exception.toString())
-//            Log.e("You Frag", postList.toString())
-//            myPhotoList?.clear()
-//            if ()
-//            myPhotoList?.addAll(postList)
-//            photoAdapter?.notifyDataSetChanged()
-//        }
     }
 
 

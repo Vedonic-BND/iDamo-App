@@ -29,14 +29,7 @@ import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_edit_post.*
-import kotlinx.android.synthetic.main.ask_community.*
-import kotlinx.android.synthetic.main.ask_community.description_post
 import kotlinx.android.synthetic.main.ask_community.image_post
-import kotlinx.android.synthetic.main.comment_item.*
-import kotlinx.android.synthetic.main.edit_user_details.*
-import kotlinx.android.synthetic.main.photo_item.*
 
 class EditPostActivity : AppCompatActivity() {
 
@@ -138,11 +131,8 @@ class EditPostActivity : AppCompatActivity() {
 
 
         when {
-            edit_profile_name.text.toString() == "" -> {
-                Toast.makeText(this, "Please write your Name.", Toast.LENGTH_SHORT).show()
-            }
-            edit_profile_bio.text.toString() == "" -> {
-                Toast.makeText(this, "Please write your Bio.", Toast.LENGTH_SHORT).show()
+            post_description.text.toString() == "" -> {
+                Toast.makeText(this, "Please write description.", Toast.LENGTH_SHORT).show()
             }
             imageUri == null -> {
                 Toast.makeText(this, "Please select your image.", Toast.LENGTH_SHORT).show()
