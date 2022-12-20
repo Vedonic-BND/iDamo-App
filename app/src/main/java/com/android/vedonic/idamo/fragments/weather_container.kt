@@ -183,18 +183,18 @@ class weather_container : Fragment() {
                 val conditionText = response.getJSONObject("current").getJSONObject("condition").getString("text")
                 val conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon")
                 Picasso.get().load("https:"+conditionIcon).into(weatherIcon)
-                weatherCondition.text = conditionText.toString()
+                weatherCondition.text = conditionText
 
-                val localTime = Calendar.getInstance()
-                Log.e("lcoal time", localTime.toString())
-                val input = SimpleDateFormat("MM-dd-yyyy hh:mm")
-                val output = SimpleDateFormat("EEEE")
+                val localDate = Calendar.getInstance()
+                Log.e("lcoal time", localDate.toString())
+                val dateNow = SimpleDateFormat("MMM dd, yyyy")
+                val dayNow = SimpleDateFormat("EEEE")
 
                 try {
-//                    val dateNow = input.parse(localTime.time)
-                    date.text = input.format(localTime.time)
-//                    Log.e("output", output.format(dateNow))
-//                    Log.e("Date", dateNow.toString())
+                    val date = dateNow.format(localDate.time)
+                    val day = dayNow.format(localDate.time)
+
+                    weatherDate.text = "$date - $day"
 
                 }catch (e: Exception) {
                     e.printStackTrace()

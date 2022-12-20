@@ -33,14 +33,14 @@ class WeatherAdapter (private var mContext: Context,
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: WeatherAdapter.ViewHolder, position: Int) {
         val weather = mWeather[position]
-        holder.temperature.text = weather.getTemperature() + "°c"
-        Picasso.get().load("https:"+weather.getIcon()).into(holder.icon)
-        holder.condition.text = weather.getCondition()
+        holder.temperature.text = weather.temperature + "°c"
+        Picasso.get().load("https:"+weather.icon).into(holder.icon)
+        holder.condition.text = weather.condition
         val input = SimpleDateFormat("yyyy-MM-dd hh:mm")
         val output = SimpleDateFormat("hh:mm aa")
 
         try {
-            val t = input.parse(weather.getTime())
+            val t = input.parse(weather.time)
             holder.time.text = output.format(t as Date)
         }catch (e: Exception) {
             e.printStackTrace()
