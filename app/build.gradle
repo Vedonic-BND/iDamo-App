@@ -8,7 +8,7 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Vedonic\\AndroidStudioProjects\\iDamoFirebase\\iDamoPDI.jks')
+            storeFile file('C:\\Users\\Vedonic\\AndroidStudioProjects\\iDamo\\iDamoPDI.jks')
             storePassword 'chamonixfranc3'
             keyAlias 'iDamoPDI'
             keyPassword 'chamonixfranc3'
