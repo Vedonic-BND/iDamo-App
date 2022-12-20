@@ -13,6 +13,9 @@ import com.android.vedonic.idamo.R
 import com.android.vedonic.idamo.databinding.UserMessageItemBinding
 import com.android.vedonic.idamo.model.User
 import com.bumptech.glide.Glide.init
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class UserChatAdapter(var mContext: Context,
@@ -29,6 +32,7 @@ class UserChatAdapter(var mContext: Context,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val user = mUser[position]
+        val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
 
         holder.setIsRecyclable(false)
         if (holder.javaClass == UserMessageHolder::class.java) {
@@ -39,7 +43,6 @@ class UserChatAdapter(var mContext: Context,
 
             val viewHolder = holder as UserMessageHolder
 
-            Log.i("user.image", user.image)
             if (user.image.toString() == null){
 
             }else{
@@ -47,12 +50,28 @@ class UserChatAdapter(var mContext: Context,
                     .into(viewHolder.binding.imageProfile)
             }
 
-
             viewHolder.binding.userName.text = user.name
+
+            FirebaseFirestore.getInstance().collection("profile").document(currentUser).collection("messaged").document(user.uid)
+                .get().addOnSuccessListener {
+                    Log.e("it: ", it["Messaged"].toString())
+                    val status = it["Messaged"].toString()
+                    if (status == "Sent" || status == "Seen") {
+                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.white)
+                    }else if (status == "notSeen" ) {
+                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.light_green)
+                    }
+
+            }
+//            viewHolder.binding.activeIndicator.setBackgroundResource(R.color.light_green)
+
         }
 
-        holder.itemView.setOnClickListener {
 
+
+        holder.itemView.setOnClickListener {
+            FirebaseFirestore.getInstance().collection("profile").document(currentUser).collection("messaged").document(user.uid)
+                .update("Messaged", "Seen")
             val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             pref.putString("profileId", user.uid)
             pref.putString("profileImage", user.image)

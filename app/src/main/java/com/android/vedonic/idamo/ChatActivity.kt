@@ -196,12 +196,15 @@ class ChatActivity : AppCompatActivity() {
         database!!.collection("chats").document(receiverRoom.toString()).set(lastMsgObj)
 
         val currentID = FirebaseAuth.getInstance().uid
-        val mesMap = HashMap<String, Any> ()
-        mesMap["Messaged"] = "Yes"
+        val mesSen = HashMap<String, Any> ()
+        mesSen["Messaged"] = "Sent"
         database!!.collection("profile").document(currentID.toString()).collection("messaged")
-            .document(receiverUid.toString()).set(mesMap)
+            .document(receiverUid.toString()).set(mesSen)
+
+        val mesRec = HashMap<String, Any> ()
+        mesRec["Messaged"] = "notSeen"
         database!!.collection("profile").document(receiverUid.toString()).collection("messaged")
-            .document(currentID.toString()).set(mesMap)
+            .document(currentID.toString()).set(mesRec)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -270,11 +273,15 @@ class ChatActivity : AppCompatActivity() {
                                 database!!.collection("chats").document(receiverRoom.toString()).set(lastMsgObj)
 
                                 val currentID = FirebaseAuth.getInstance().uid
-                                val mesMap = HashMap<String, Any> ()
+                                val mesSen = HashMap<String, Any> ()
+                                mesSen["Messaged"] = "Sent"
                                 database!!.collection("profile").document(currentID.toString()).collection("messaged")
-                                    .document(receiverUid.toString()).set(mesMap)
+                                    .document(receiverUid.toString()).set(mesSen)
+
+                                val mesRec = HashMap<String, Any> ()
+                                mesRec["Messaged"] = "notSeen"
                                 database!!.collection("profile").document(receiverUid.toString()).collection("messaged")
-                                    .document(currentID.toString()).set(mesMap)
+                                    .document(currentID.toString()).set(mesRec)
 
                             }
                         }
@@ -338,11 +345,15 @@ class ChatActivity : AppCompatActivity() {
                             database!!.collection("chats").document(receiverRoom.toString()).set(lastMsgObj)
 
                             val currentID = FirebaseAuth.getInstance().uid
-                            val mesMap = HashMap<String, Any> ()
+                            val mesSen = HashMap<String, Any> ()
+                            mesSen["Messaged"] = "Sent"
                             database!!.collection("profile").document(currentID.toString()).collection("messaged")
-                                .document(receiverUid.toString()).set(mesMap)
+                                .document(receiverUid.toString()).set(mesSen)
+
+                            val mesRec = HashMap<String, Any> ()
+                            mesRec["Messaged"] = "notSeen"
                             database!!.collection("profile").document(receiverUid.toString()).collection("messaged")
-                                .document(currentID.toString()).set(mesMap)
+                                .document(currentID.toString()).set(mesRec)
 
                         }
                     }

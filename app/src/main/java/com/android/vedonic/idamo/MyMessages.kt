@@ -43,8 +43,6 @@ class MyMessages : AppCompatActivity() {
     private var firestoreDb: FirebaseFirestore? = null
 
     private var receiverUid: String? = null
-    private var receiverName: String? = null
-    private var receiverProfile: String? = null
     private var senderRoom: String? = null
 
 
@@ -135,6 +133,7 @@ class MyMessages : AppCompatActivity() {
                         userID[counter] = snap.reference.id
                     }
 
+
                     for ((counter,i) in userID.withIndex()) {
 
                         database.collection("profile").document(i.toString())
@@ -143,6 +142,8 @@ class MyMessages : AppCompatActivity() {
                                 mUser?.add(userList!!)
                                 userAdapter?.notifyDataSetChanged()
                             }
+
+
                     }
 
 
