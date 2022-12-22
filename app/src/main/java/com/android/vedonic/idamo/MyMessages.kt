@@ -149,7 +149,7 @@ class MyMessages : AppCompatActivity() {
 
                 } else {
 
-                    Toast.makeText(this, "Error loading messages!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "You have no Messages!", Toast.LENGTH_SHORT).show()
                     binding!!.messageRecycler.visibility = View.INVISIBLE
                     binding!!.noMessages.visibility = View.VISIBLE
                 }
