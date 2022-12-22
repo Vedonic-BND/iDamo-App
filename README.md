@@ -7,9 +7,13 @@ iDamo: Plant Disease Identifier is a self-hosted android application that will h
 Turn your android phones into a mobile plant companion with iDamo.  
 You need an iDamo account first, which you are going to use in this app.
 
-wallabag is available on the Google Play Store and F-Droid.
+Get the app on 
+
 
 <!---
+wallabag is available on the Google Play Store and F-Droid.
+
+
 <p align="left">
 <a href="https://play.google.com/store/apps/details?id=fr.gaulupeau.apps.InThePoche">
     <img alt="Get it on Google Play"
