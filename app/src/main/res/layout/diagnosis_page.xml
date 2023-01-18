@@ -7,65 +7,119 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/diagnosisToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="10dp"
+        app:title="Diagnosis"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/appbar_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_taken"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:elevation="1dp"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:cropToPadding="true"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diagnosisToolbar" />
+
 
     <ScrollView
         android:id="@+id/dashboard_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="390dp"
+        android:background="@drawable/bottom_shape_top_curve"
+        app:layout_constraintTop_toBottomOf="@+id/image_taken"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
             tools:context=".Diagnosis_page">
 
             <TextView
-                android:id="@+id/container1_title"
+                android:id="@+id/diseaseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingRight="20dp"
-                android:text="Diagnosis Page"
-                android:textColor="@color/black"
-                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:text="Disease Name"
+                android:textSize="20sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_taken"
-                android:layout_width="330dp"
-                android:layout_height="330dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shadow"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/container1_title" />
-
             <TextView
-                android:id="@+id/textsample"
+                android:id="@+id/diseaseDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:text="@string/test"
-                android:textSize="20sp"
-                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textColor="#DCD7D7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_taken" />
+                app:layout_constraintTop_toBottomOf="@+id/diseaseName" />
+
+            <TextView
+                android:id="@+id/solutionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Solution"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diseaseDesc" />
+
+            <TextView
+                android:id="@+id/solution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/test"
+                android:textSize="15sp"
+                android:textColor="#DCD7D7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/solutionTitle" />
+<!--            -->
+<!--            <com.google.android.youtube.player.YouTubePlayerView-->
+<!--                android:id="@+id/ytSolution"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:layout_margin="20dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/solution"-->
+<!--                />-->
 
             <Space
                 android:id="@+id/space2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
-                app:layout_constraintTop_toBottomOf="@+id/textsample" />
+                app:layout_constraintTop_toBottomOf="@+id/solution" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -75,7 +129,7 @@
         android:layout_width="99dp"
         android:layout_height="40dp"
         android:layout_margin="20dp"
-        android:background="@drawable/plain_btn"
+        android:background="@drawable/plain_btn2"
         android:text="@string/done"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

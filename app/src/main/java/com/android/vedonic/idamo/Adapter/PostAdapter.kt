@@ -94,12 +94,6 @@ class PostAdapter (private val mContext: Context,
             holder.postImage.setImageResource(R.drawable.add_image_icon)
         }else{
             Picasso.get().load(post.postimage).into(holder.postImage)
-//
-//            val options: RequestOptions = RequestOptions()
-//                .placeholder(com.android.vedonic.idamo.R.drawable.add_image_icon)
-//                .error(com.android.vedonic.idamo.R.drawable.add_image_icon)
-//
-//            Glide.with(mContext).load(post.postimage).apply(options).into(holder.postImage)
         }
 
         publisherInfo(holder.profileImage, holder.userName, holder.publisher, post.publisher)
@@ -134,6 +128,7 @@ class PostAdapter (private val mContext: Context,
             mContext.startActivity(intent)
 
         }
+
         holder.comments.setOnClickListener {
             val intent = Intent(mContext, CommentsActivity::class.java)
             intent.putExtra("postId", post.postid)
@@ -231,7 +226,6 @@ class PostAdapter (private val mContext: Context,
     }
 
     private fun publisherInfo(profileImage: CircleImageView, userName: TextView, publisher: TextView, publisherID: String) {
-        //firestore
         val userRef = FirebaseFirestore.getInstance().collection("profile").document(publisherID)
 
         userRef.addSnapshotListener { snapshot, exception ->
@@ -248,25 +242,6 @@ class PostAdapter (private val mContext: Context,
 
 
         }
-
-        //firebaseDatabase
-//        val userRef = FirebaseDatabase.getInstance().reference.child("profile").child(publisherID)
-//
-//        userRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    val user = snapshot.getValue<User>(User::class.java)
-//
-//                    Picasso.get().load(user!!.image).placeholder(R.drawable.profile).into(profileImage)
-//                    userName.text = user!!.name
-//                    publisher.text = user!!.name
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//
-//            }
-//        })
     }
 
     override fun getItemCount(): Int {

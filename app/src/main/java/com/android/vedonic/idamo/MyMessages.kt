@@ -58,7 +58,6 @@ class MyMessages : AppCompatActivity() {
         binding = ActivityMyMessagesBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
 
-
         setSupportActionBar(binding!!.messagesappbar)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -66,26 +65,25 @@ class MyMessages : AppCompatActivity() {
 
         mUser = ArrayList()
 
-
+        //Get user uid, name, image to UserAdapter Activity
         val pref = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-
         if (pref != null){
             this.profileId = pref.getString("profileId", "none").toString()
             this.profileImage = pref.getString("profileImage", "none").toString()
             this.userName = pref.getString("userName", "none").toString()
         }
 
+        //Bind UserAdapter adapter to layout
         userAdapter = UserChatAdapter(this, mUser as java.util.ArrayList<User>)
-
         binding!!.messageRecycler.layoutManager = LinearLayoutManager(this@MyMessages)
         binding!!.messageRecycler.adapter = userAdapter
 
         getPerson()
 
-
+        //Create senderRoom ID
         senderRoom = firebaseUser!!.uid + receiverUid
 
-
+        //Clear List
         mUser?.clear()
 
     }
@@ -97,6 +95,7 @@ class MyMessages : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //to do when menu is clicked
         val id = item.itemId
 
         if (id == R.id.search_bar){
@@ -122,10 +121,7 @@ class MyMessages : AppCompatActivity() {
                     binding!!.messageRecycler.visibility = View.VISIBLE
                     binding!!.noMessages.visibility = View.INVISIBLE
 
-
-                    Log.i("size", size.toString())
                     val userID = arrayOfNulls<String>(size)
-
 
                     //set postid to array
                     for ((counter, i) in userID.withIndex()) {
@@ -133,12 +129,12 @@ class MyMessages : AppCompatActivity() {
                         userID[counter] = snap.reference.id
                     }
 
-
                     for ((counter,i) in userID.withIndex()) {
 
                         database.collection("profile").document(i.toString())
                             .addSnapshotListener { snapshot, error ->
                                 val userList = snapshot!!.toObject(User::class.java)
+                                Log.e("snapshot list",userList.toString())
                                 mUser?.add(userList!!)
                                 userAdapter?.notifyDataSetChanged()
                             }

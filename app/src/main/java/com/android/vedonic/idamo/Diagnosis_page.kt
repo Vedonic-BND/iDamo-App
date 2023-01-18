@@ -3,6 +3,7 @@ package com.android.vedonic.idamo
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.diagnosis_page.*
@@ -16,6 +17,7 @@ class Diagnosis_page: AppCompatActivity() {
 
         val intent = intent
         val imageURI = intent.getParcelableExtra<Uri>("plant_image")
+        Log.e("URI", imageURI.toString())
         image.setImageURI(imageURI)
 
         done_btn.setOnClickListener{

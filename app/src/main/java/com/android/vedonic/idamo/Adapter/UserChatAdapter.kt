@@ -2,20 +2,18 @@ package com.android.vedonic.idamo.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.vedonic.idamo.ChatActivity
 import com.android.vedonic.idamo.R
 import com.android.vedonic.idamo.databinding.UserMessageItemBinding
 import com.android.vedonic.idamo.model.User
-import com.bumptech.glide.Glide.init
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class UserChatAdapter(var mContext: Context,
@@ -23,7 +21,7 @@ class UserChatAdapter(var mContext: Context,
 
 
 
-    lateinit var mUser: ArrayList<User>
+    var mUser: ArrayList<User>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.user_message_item, parent, false)
@@ -36,15 +34,12 @@ class UserChatAdapter(var mContext: Context,
 
         holder.setIsRecyclable(false)
         if (holder.javaClass == UserMessageHolder::class.java) {
-//        holder.binding.visibility = View.VISIBLE
-//        holder.userName.visibility = View.GONE
-//        viewHolder.binding.mlinear.visibility = View.GONE
-//        Picasso.get().load(user.image).placeholder(R.drawable.add_image_icon).into(holder.binding.)
 
             val viewHolder = holder as UserMessageHolder
 
             if (user.image.toString() == null){
-
+                Picasso.get().load(R.drawable.profile).placeholder(R.drawable.profile)
+                    .into(viewHolder.binding.imageProfile)
             }else{
                 Picasso.get().load(user.image).placeholder(R.drawable.profile)
                     .into(viewHolder.binding.imageProfile)
@@ -52,26 +47,35 @@ class UserChatAdapter(var mContext: Context,
 
             viewHolder.binding.userName.text = user.name
 
+            //make BG of item white or light green.
             FirebaseFirestore.getInstance().collection("profile").document(currentUser).collection("messaged").document(user.uid)
                 .get().addOnSuccessListener {
-                    Log.e("it: ", it["Messaged"].toString())
                     val status = it["Messaged"].toString()
                     if (status == "Sent" || status == "Seen") {
-                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.white)
+                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.white) //if seen or sent
                     }else if (status == "notSeen" ) {
-                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.light_green)
+                        viewHolder.binding.activeIndicator.setBackgroundResource(R.color.light_green) //if new or not seen
                     }
-
             }
-//            viewHolder.binding.activeIndicator.setBackgroundResource(R.color.light_green)
 
+            //if user is online or offline
+            FirebaseFirestore.getInstance().collection("profile").document(user.uid).collection("presence").document(user.uid)
+                .get().addOnSuccessListener {
+                    val presence = it["Presence"].toString()
+                    if (presence == "Online") {
+                        viewHolder.binding.presence.setColorFilter(ContextCompat.getColor(mContext, R.color.online_dot)) //if user is Online
+                    }else if (presence == "Offline" ) {
+                        viewHolder.binding.presence.setColorFilter(ContextCompat.getColor(mContext, R.color.grey_font))  //if user is Offline
+                    }
+            }
         }
-
 
 
         holder.itemView.setOnClickListener {
             FirebaseFirestore.getInstance().collection("profile").document(currentUser).collection("messaged").document(user.uid)
                 .update("Messaged", "Seen")
+
+            //broadcast user uid, image, and name to all activities that might use/get it
             val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             pref.putString("profileId", user.uid)
             pref.putString("profileImage", user.image)
@@ -84,6 +88,8 @@ class UserChatAdapter(var mContext: Context,
             intent.putExtra("uid", user.uid)
             mContext.startActivity(intent)
         }
+
+
     }
 
     override fun getItemCount(): Int = mUser.size

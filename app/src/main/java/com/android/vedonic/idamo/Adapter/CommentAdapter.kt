@@ -54,7 +54,7 @@ class CommentAdapter (private val mContext: Context,
         holder.comment.text = comment.comment
         holder.userName
 
-        //edit feature
+        //Edit Comment
         holder.itemView.setOnClickListener{
             if (firebaseUser!!.uid == comment.publisher){
 

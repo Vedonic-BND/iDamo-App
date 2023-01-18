@@ -34,18 +34,10 @@ import kotlinx.android.synthetic.main.weather_forecast_item.*
 import org.json.JSONException
 import java.text.SimpleDateFormat
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [weather_container.newInstance] factory method to
- * create an instance of this fragment.
- */
 class weather_container : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -94,20 +86,14 @@ class weather_container : Fragment() {
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)!!
 
-//                            tvLatitude.text = "Latitude\n${list[0].latitude}"
-//                            tvLongitude.text = "Longitude\n${list[0].longitude}"
-//                            tvCountryName.text = "Country Name\n${list[0].countryName}"
-//                            tvLocality.text = "Locality\n${list[0].locality}"
-//                            tvAddress.text = "Address\n${list[0].getAddressLine(0)}"
-
-                        Log.e("lat", "${list[0].latitude}")
-                        Log.e("long", "${list[0].longitude}")
-                        Log.e("country", "${list[0].countryName}")
-                        Log.e("locality", "${list[0].locality}")
-                        Log.e("adminArea", "${list[0].adminArea}")
-                        Log.e("subadminArea", "${list[0].subAdminArea}")
-                        Log.e("thoroughfare", "${list[0].thoroughfare}")
-                        Log.e("address", "${list[0].getAddressLine(0)}")
+//                        Log.e("lat", "${list[0].latitude}")
+//                        Log.e("long", "${list[0].longitude}")
+//                        Log.e("country", "${list[0].countryName}")
+//                        Log.e("locality", "${list[0].locality}")
+//                        Log.e("adminArea", "${list[0].adminArea}")
+//                        Log.e("subadminArea", "${list[0].subAdminArea}")
+//                        Log.e("thoroughfare", "${list[0].thoroughfare}")
+//                        Log.e("address", "${list[0].getAddressLine(0)}")
 
                         currentLocation = list[0].locality + " City, " + list[0].subAdminArea
 
@@ -188,7 +174,7 @@ class weather_container : Fragment() {
                 val localDate = Calendar.getInstance()
                 Log.e("lcoal time", localDate.toString())
                 val dateNow = SimpleDateFormat("MMM dd, yyyy")
-                val dayNow = SimpleDateFormat("EEEE")
+                val dayNow = SimpleDateFormat("EEE")
 
                 try {
                     val date = dateNow.format(localDate.time)
@@ -248,15 +234,6 @@ class weather_container : Fragment() {
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment weather_container.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             weather_container().apply {

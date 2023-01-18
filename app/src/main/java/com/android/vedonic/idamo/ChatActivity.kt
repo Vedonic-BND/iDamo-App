@@ -287,6 +287,8 @@ class ChatActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }else{
+                Toast.makeText(this, "Error Loading Image. Please Try Again!", Toast.LENGTH_SHORT).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -300,7 +302,9 @@ class ChatActivity : AppCompatActivity() {
                 val stream = ByteArrayOutputStream()
                 imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
                 val resolver = applicationContext.contentResolver
-                val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap, "Title", null)
+                val date = System.currentTimeMillis()
+                val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap,
+                    "IMG_$date", null)
 
                 val imageUri = Uri.parse(path)
                 val calendar = Calendar.getInstance()
@@ -359,7 +363,10 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
 
+            }else{
+                Toast.makeText(this, "Error Loading Image. Please Try Again!", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 

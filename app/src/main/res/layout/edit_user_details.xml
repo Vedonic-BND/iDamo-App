@@ -57,6 +57,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_border"
             android:hint="Full Name"
             android:inputType="textPersonName" />
 
@@ -68,6 +70,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_border"
             android:inputType="text"
             android:hint="Bio"
             />

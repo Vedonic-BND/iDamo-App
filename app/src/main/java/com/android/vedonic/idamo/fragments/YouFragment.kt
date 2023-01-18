@@ -41,13 +41,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class YouFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
 
     private lateinit var auth: FirebaseAuth
-    var databaseReference: DatabaseReference? = null
     var database: FirebaseDatabase? = null
 
     //firestore
@@ -74,7 +72,6 @@ class YouFragment : Fragment() {
 
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
 
         //firestore
         firestoreDb = FirebaseFirestore.getInstance()
@@ -93,7 +90,6 @@ class YouFragment : Fragment() {
         val edit_btn = v.findViewById<Button>(R.id.edit_button)
         val create_btn = v.findViewById<Button>(R.id.create_btn)
         val leaflet_container = v.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.leaflet_container)
-        val leaflet_counter = v.findViewById<TextView>(R.id.leaflet_count)
         val message_button = v.findViewById<Button>(R.id.message_button)
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
@@ -304,25 +300,6 @@ class YouFragment : Fragment() {
             view?.findViewById<TextView>(R.id.leaflet_count)?.text = snapshot?.getString("leaflet")
             Picasso.get().load(snapshot?.getString("image")).into(view?.findViewById<CircleImageView>(R.id.user_picture))
         }
-
-
-        //firebase database
-        //val userRef = FirebaseDatabase.getInstance().reference.child("profile").child(profileId)
-
-//        userRef.addValueEventListener(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val user = snapshot.getValue<User>(User::class.java)
-//                if (snapshot.exists()) {
-//                    view?.findViewById<TextView>(R.id.user_name)?.text = user!!.getName()
-//                    view?.findViewById<TextView>(R.id.user_bio)?.text = user!!.getBio()
-//                    Picasso.get().load(user!!.getImage()).into(view?.findViewById<CircleImageView>(R.id.user_picture))
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//        })
     }
 
 

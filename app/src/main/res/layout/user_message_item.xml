@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activeIndicator"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -10,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_profile"
@@ -28,6 +30,17 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/presence"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="-25dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_circle"
+            app:tint="@color/grey_font"
+            />
+
 
     </LinearLayout>
 

@@ -19,8 +19,6 @@ class MessageAdapter(var mContext: Context,
                      senderRoom: String,
                      receiverRoom:String ) : RecyclerView.Adapter<RecyclerView.ViewHolder> () {
 
-    private var firebaseUser: FirebaseUser? = null
-
     lateinit var mMessage: ArrayList<Message>
     val ITEM_SENT = 1
     val ITEM_RECEIVE = 2
@@ -83,18 +81,6 @@ class MessageAdapter(var mContext: Context,
     inner class ReceiveMsgHolder(@NonNull itemView: View): RecyclerView.ViewHolder(itemView){
         var binding: ReceiveMsgItemBinding = ReceiveMsgItemBinding.bind(itemView)
     }
-
-//    inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var profileImage: CircleImageView
-//        var userName: TextView
-//        var message: TextView
-//
-//        init {
-//            profileImage = itemView.findViewById(R.id.image_profile)
-//            userName = itemView.findViewById(R.id.user_name)
-//            message = itemView.findViewById(R.id.message)
-//        }
-//    }
 
     init {
         if (mMessage != null) {

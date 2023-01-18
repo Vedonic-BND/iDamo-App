@@ -15,6 +15,7 @@
     <color name="colorPrimaryDark">#485C31</color>
     <color name="colorAccent">#667741</color>
     <color name="light_green">#D0EDB3</color>
+    <color name="online_dot">#05b714</color>
 
 
 </resources>

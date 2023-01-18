@@ -114,8 +114,12 @@ class DashboardFragment : Fragment() {
             val stream = ByteArrayOutputStream()
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
             val resolver = requireActivity().contentResolver
-            val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap, "Title", null)
+            val date = System.currentTimeMillis()
+            val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap,
+                "IMG_$date", null)
+            Log.e("path", path)
             val imageUri = Uri.parse(path)
+            Log.e("imageUri", imageUri.toString())
             val passintent = Intent(activity, Diagnosis_page::class.java)
             passintent.putExtra("plant_image", imageUri)
             startActivity(passintent)
@@ -125,6 +129,7 @@ class DashboardFragment : Fragment() {
     private fun openGallery (requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK && data != null){
             val filePath: Uri = data.getData()!!
+            Log.e("filePath", filePath.toString())
             val intent = Intent (activity, Diagnosis_page::class.java)
             intent.putExtra("plant_image", filePath)
             activity?.startActivity(intent)
@@ -191,15 +196,6 @@ class DashboardFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DashboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             DashboardFragment().apply {

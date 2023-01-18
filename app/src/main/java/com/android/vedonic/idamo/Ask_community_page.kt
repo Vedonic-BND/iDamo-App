@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.ask_community.*
@@ -91,9 +92,6 @@ class Ask_community_page: AppCompatActivity() {
                     if (task.isSuccessful){
                         val downloadUrl = task.result
                         myUrl = downloadUrl.toString()
-                        //firebase database
-                        //val ref = FirebaseDatabase.getInstance().reference.child("Posts")
-                        //val postId = ref.push().key
 
                         //firestore
                         val ref = FirebaseFirestore.getInstance().collection("Posts")
@@ -107,9 +105,6 @@ class Ask_community_page: AppCompatActivity() {
 
                         //firestore
                         ref.document(postId).set(postMap)
-
-                        //firebase database
-//                        ref.child(postId).updateChildren(postMap)
 
                         Toast.makeText(this, "Post has been published successfully!", Toast.LENGTH_SHORT).show()
 
@@ -158,9 +153,7 @@ class Ask_community_page: AppCompatActivity() {
     }
 
     private fun setImageURI(imageUri: Uri) {
-        Glide.with(this)
-            .load(imageUri)
-            .into(image_post)
+        Picasso.get().load(imageUri).into(image_post)
     }
 
     private fun pickFromGallery() {

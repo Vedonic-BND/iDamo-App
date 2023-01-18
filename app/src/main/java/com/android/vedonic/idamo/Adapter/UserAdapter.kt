@@ -27,9 +27,9 @@ class UserAdapter (private var mContext: Context,
                    private var isFragment: Boolean = false) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(com.android.vedonic.idamo.R.layout.user_item_layout, parent, false)
-        return UserAdapter.ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(mContext).inflate(R.layout.user_item_layout, parent, false)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -56,6 +56,8 @@ class UserAdapter (private var mContext: Context,
         }
 
         holder.itemView.setOnClickListener(View.OnClickListener {
+
+            //Pass user uid, name, image to MyMessages Activity
             val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             pref.putString("profileId", user.uid)
             pref.putString("profileImage", user.image)
