@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var Database: FirebaseFirestore
 
+    private var navigationClickedTime: Long = 0
+    private val MIN_CLICK_INTERVAL: Long = 750
+    private var currentFragment: Fragment? = null
+
     private companion object {
         const val TAG = "MainActivity"
     }
@@ -76,10 +80,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun replaceFragment(fragment: Fragment){
+        val currentTime = System.currentTimeMillis()
         if(fragment != null){
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.bottom_nav_fragment_container, fragment)
-            transaction.commit()
+            if (currentTime - navigationClickedTime > MIN_CLICK_INTERVAL) {
+                navigationClickedTime = currentTime
+                val transaction = supportFragmentManager.beginTransaction()
+//                if (currentFragment != null) {
+//                    transaction.hide(currentFragment!!)
+//                }
+                transaction.replace(R.id.bottom_nav_fragment_container, fragment)
+                transaction.commit()
+                currentFragment = fragment
+            }
         }
     }
 
