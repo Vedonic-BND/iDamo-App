@@ -1,5 +1,6 @@
 package com.android.vedonic.idamo.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
@@ -14,12 +15,19 @@ import com.android.vedonic.idamo.Diagnosis_page
 import com.android.vedonic.idamo.R
 import java.io.File
 import android.content.ActivityNotFoundException
+import android.content.ContentValues
+import android.content.Context
 import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.android.vedonic.idamo.Login_page
 import com.android.vedonic.idamo.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -74,10 +82,22 @@ class DashboardFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1001) {
-            openCamera(requestCode, resultCode, data)
-        }else if(requestCode == 1002){
-            openGallery(requestCode, resultCode, data)
+        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                0
+            )
+
+            Toast.makeText(activity, "Try Again!", Toast.LENGTH_SHORT).show()
+        } else {
+            // Permission has already been granted
+            if (requestCode == 1001) {
+                openCamera(requestCode, resultCode, data)
+            }else if(requestCode == 1002){
+                openGallery(requestCode, resultCode, data)
+            }
         }
     }
 
@@ -115,14 +135,21 @@ class DashboardFragment : Fragment() {
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
             val resolver = requireActivity().contentResolver
             val date = System.currentTimeMillis()
+
+
             val path: String = MediaStore.Images.Media.insertImage(resolver, imageBitmap,
                 "IMG_$date", null)
+
             Log.e("path", path)
             val imageUri = Uri.parse(path)
             Log.e("imageUri", imageUri.toString())
             val passintent = Intent(activity, Diagnosis_page::class.java)
             passintent.putExtra("plant_image", imageUri)
             startActivity(passintent)
+
+
+
+
         }
     }
 
@@ -222,4 +249,6 @@ class DashboardFragment : Fragment() {
             transaction.commitAllowingStateLoss()
         }
     }
+
+
 }

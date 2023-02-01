@@ -1,8 +1,10 @@
 package com.android.vedonic.idamo.fragments
 
+import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +17,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android.vedonic.idamo.Diagnosis_page
 import com.android.vedonic.idamo.R
 import java.io.ByteArrayOutputStream
@@ -40,7 +44,18 @@ class hyp_container : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        openCamera(requestCode, resultCode, data)
+        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this.requireActivity(),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                0
+            )
+            Toast.makeText(activity, "Try Again!", Toast.LENGTH_SHORT).show()
+        } else {
+            // Permission has already been granted
+            openCamera(requestCode, resultCode, data)
+        }
     }
 
 

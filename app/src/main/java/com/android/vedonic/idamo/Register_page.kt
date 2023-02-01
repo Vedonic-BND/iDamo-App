@@ -8,6 +8,7 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.google.android.youtube.player.internal.e
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -111,34 +112,83 @@ class Register_page : AppCompatActivity() {
 
         //create account
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnSuccessListener { e ->
-                progressDialog.dismiss()
-                val firebaseUser = auth.currentUser
-                val e_mail = firebaseUser!!.email
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    progressDialog.dismiss()
+                    val firebaseUser = auth.currentUser
+                    val e_mail = firebaseUser!!.email
 
-                val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
-                val userMap = HashMap<String, Any>()
-                userMap["uid"] = currentUserID
-                userMap["name"] = name.toUpperCase()
-                userMap["email"] = email
-                userMap["bio"] = bio
-                userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/idamo-4ea09.appspot.com/o/Default%20Images%2Fuser_no-frame.png?alt=media&token=7a16341d-e597-465a-ab77-bbbdfa7ad480"
+                    val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+                    val userMap = HashMap<String, Any>()
+                    userMap["uid"] = currentUserID
+                    userMap["name"] = name.toUpperCase()
+                    userMap["email"] = email
+                    userMap["bio"] = bio
+                    userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/idamo-4ea09.appspot.com/o/Default%20Images%2Fuser_no-frame.png?alt=media&token=7a16341d-e597-465a-ab77-bbbdfa7ad480"
 
-                val userRef = firestoreDb.collection("profile").document(currentUserID)
-                userRef.set(userMap)
+                    val userRef = firestoreDb.collection("profile").document(currentUserID)
+                    userRef.set(userMap)
 
-                //databaseReference?.child(currentUserID)!!.setValue(userMap)
+                    //databaseReference?.child(currentUserID)!!.setValue(userMap)
 
 
-                Toast.makeText(this, "Account created with email $e_mail", Toast.LENGTH_SHORT)
-                    .show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                    auth.currentUser?.sendEmailVerification()
+                        ?.addOnSuccessListener {
+                            Toast.makeText(this, "Please verify your Email!", Toast.LENGTH_SHORT).show()
+                        }
+                        ?.addOnFailureListener {
+                            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                        }
+
+                    Toast.makeText(this, "Account created with email $e_mail", Toast.LENGTH_SHORT)
+                        .show()
+                    startActivity(Intent(this, Login_page::class.java))
+                    finish()
+
+                } else {
+
+                    progressDialog.dismiss()
+                    Toast.makeText(this, "Sign Up Failed: " + it.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+
             }
-            .addOnFailureListener { e ->
-                progressDialog.dismiss()
-                Toast.makeText(this, "Sign Up Failed: " + e.message, Toast.LENGTH_SHORT).show()
-            }
+
+//            .addOnSuccessListener { e ->
+//                progressDialog.dismiss()
+//                val firebaseUser = auth.currentUser
+//                val e_mail = firebaseUser!!.email
+//
+//                val currentUserID = FirebaseAuth.getInstance().currentUser!!.uid
+//                val userMap = HashMap<String, Any>()
+//                userMap["uid"] = currentUserID
+//                userMap["name"] = name.toUpperCase()
+//                userMap["email"] = email
+//                userMap["bio"] = bio
+//                userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/idamo-4ea09.appspot.com/o/Default%20Images%2Fuser_no-frame.png?alt=media&token=7a16341d-e597-465a-ab77-bbbdfa7ad480"
+//
+//                val userRef = firestoreDb.collection("profile").document(currentUserID)
+//                userRef.set(userMap)
+//
+//                //databaseReference?.child(currentUserID)!!.setValue(userMap)
+//
+//
+//                auth.currentUser?.sendEmailVerification()
+//                    ?.addOnSuccessListener {
+//                        Toast.makeText(this, "Please verify your Email!", Toast.LENGTH_SHORT).show()
+//                    }
+//                    ?.addOnFailureListener {
+//                        Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                Toast.makeText(this, "Account created with email $e_mail", Toast.LENGTH_SHORT)
+//                    .show()
+//                startActivity(Intent(this, Login_page::class.java))
+//                finish()
+//            }
+//            .addOnFailureListener { e ->
+//                progressDialog.dismiss()
+//                Toast.makeText(this, "Sign Up Failed: " + e.message, Toast.LENGTH_SHORT).show()
+//            }
     }
 
     override fun onBackPressed() {

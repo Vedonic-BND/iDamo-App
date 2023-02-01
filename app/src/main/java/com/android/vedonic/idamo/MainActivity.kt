@@ -1,11 +1,15 @@
 package com.android.vedonic.idamo
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.android.vedonic.idamo.Adapter.UserAdapter
 import com.android.vedonic.idamo.fragments.CommunityFragment

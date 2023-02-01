@@ -76,13 +76,19 @@ class Login_page : AppCompatActivity() {
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
+        Log.e("Who: ", currentUser.toString())
         if (currentUser == null) {
-            Log.w(TAG, "User is not signed in. Please sign in to proceed!")
+            Log.w(TAG, "User is not signed in. Please register to proceed!")
             return
+        }else{
+            val verification = auth.currentUser?.isEmailVerified
+            if (verification == true) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }else{
+                Toast.makeText(this, "Please verify your Email.", Toast.LENGTH_SHORT).show()
+            }
         }
-
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
     }
 
     private fun validateData() {
@@ -108,21 +114,46 @@ class Login_page : AppCompatActivity() {
 
     private fun firebaseLogin() {
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { e ->
-                //login success
-                progressDialog.dismiss()
-                //get user info
-                val firebaseUser = auth.currentUser
-                val email = firebaseUser!!.email
-                Toast.makeText(this, "Logged In as $email", Toast.LENGTH_SHORT).show()
-                updateUI(firebaseUser)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val verification = auth.currentUser?.isEmailVerified
+                    Log.e("who: ", auth.currentUser?.email.toString())
+                    if (verification == true) {
+                        //login success
+                        progressDialog.dismiss()
+                        //get user info
+                        val firebaseUser = auth.currentUser
+                        val email = firebaseUser!!.email
+                        Toast.makeText(this, "Logged In as $email", Toast.LENGTH_SHORT).show()
+                        updateUI(firebaseUser)
+                    }else{
+                        progressDialog.dismiss()
+                        Toast.makeText(this, "Please verify your Email.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    //login Failed
+                    progressDialog.dismiss()
+                    Toast.makeText(this, "Incorrect Email/Password", Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
             }
-            .addOnFailureListener{ e ->
-                //login Failed
-                progressDialog.dismiss()
-                Toast.makeText(this, "Incorrect Email/Password", Toast.LENGTH_SHORT).show()
-                updateUI(null)
-            }
+
+
+//            .addOnSuccessListener { e ->
+//                //login success
+//                progressDialog.dismiss()
+//                //get user info
+//                val firebaseUser = auth.currentUser
+//                val email = firebaseUser!!.email
+//                Toast.makeText(this, "Logged In as $email", Toast.LENGTH_SHORT).show()
+//                updateUI(firebaseUser)
+//            }
+//            .addOnFailureListener{ e ->
+//                //login Failed
+//                progressDialog.dismiss()
+//                Toast.makeText(this, "Incorrect Email/Password", Toast.LENGTH_SHORT).show()
+//                updateUI(null)
+//            }
     }
 
 }

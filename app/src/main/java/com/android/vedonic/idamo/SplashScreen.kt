@@ -1,5 +1,6 @@
 package com.android.vedonic.idamo
 
+import android.app.Activity
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -27,7 +28,7 @@ class SplashScreen : AppCompatActivity() {
 
 
 
-        if (!isNetworkAvailable == true) {
+        if (!isNetworkAvailable(this)) {
             AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_warning)
                 .setTitle("Internet Connection Alert")
@@ -43,25 +44,12 @@ class SplashScreen : AppCompatActivity() {
         }
     }
 
-    val isNetworkAvailable: Boolean
-        get() {
-            val connectivityManager =
-                getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (connectivityManager != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    val capabilities =
-                        connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                    if (capabilities != null) {
-                        if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                            return true
-                        } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                            return true
-                        } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                            return true
-                        }
-                    }
-                }
-            }
-            return false
-        }
+    fun isNetworkAvailable(context: Context): Boolean {
+
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+
+
+    }
 }
