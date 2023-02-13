@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.fragment_weather_container.*
 import kotlinx.android.synthetic.main.fragment_weather_container.temperature
 import kotlinx.android.synthetic.main.weather_forecast_item.*
 import org.json.JSONException
+import java.io.IOException
 import java.text.SimpleDateFormat
 
 private const val ARG_PARAM1 = "param1"
@@ -95,9 +96,16 @@ class weather_container : Fragment() {
 //                        Log.e("thoroughfare", "${list[0].thoroughfare}")
 //                        Log.e("address", "${list[0].getAddressLine(0)}")
 
-                        currentLocation = list[0].locality + " City, " + list[0].subAdminArea
+                        if (list.isNotEmpty()) {
+                            currentLocation = list[0].locality + " City, " + list[0].subAdminArea
 
-                        getWeatherInfo(currentLocation)
+                            getWeatherInfo(currentLocation)
+
+                            // Use the address information to retrieve weather information
+                        } else {
+                            throw IOException("Service not Available")
+                        }
+
                     }
                 }
             } else {

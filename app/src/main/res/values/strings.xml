@@ -7,11 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="upload">UPLOAD</string>
     <string name="take_a_picture">TAKE A PICTURE</string>
-    <string name="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        \n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        \n\n\n\n\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </string>
     <string name="heal_your_plants">Heal Your Plants</string>
     <string name="weather">Weather</string>
     <string name="kebab_btn">kebab_btn</string>
@@ -55,4 +50,100 @@
     <string name="reset_password">reset password</string>
     <string name="todo">TODO</string>
     <string name="Leaflets">Leaflets</string>
+
+    <string name="disease_name">Disease Name</string>
+    <string name="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        \n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        \n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        \n\n\n\n\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+        &#8226; foo<br/>
+        &#8226; bar<br/>
+        &#8226; baz<br/>
+    </string>
+
+
+
+
+    <!-- Disease description and solution -->
+    <!-- Downy Mildew Disease -->
+    <string name="downyMildewDiseaseTitle">Downey Mildew</string>
+    <string name="downyMildewDiseaseDescription">\t\tDowny mildew is a fungal disease that affects various plants and causes yellowing and wilting of leaves, as well as the growth of gray or white, downy fungal growth on the undersides of leaves. It is spread by water and humid conditions and can lead to stunted growth and reduced yields.
+        \n\n\t\tDowny mildew is harmful. The pale or yellow leaf spots on an infected leaf will eventually merge together and turn the entire leaf brown. In addition, a heavy infection of downy mildew will kill your plants by killing back the leaves, which stops the plant from thriving.
+    </string>
+    <string name="downyMildewDiseaseSymptoms">\t\tThe first symptoms are pale or yellow splotches on the tops of leaves that are hemmed in by the leaf veins, though these spots eventually turn brown. When the weather is particularly wet or humid, you’ll see downy fuzz (this is called sporulation) on the undersides of leaves.
+    </string>
+    <string name="downyMildewDiseaseSolution">\t\tPrevention is the absolute best method when it comes to tackling downy mildew. Here are some options for prevention:
+    \n\n1. Prune or stake plants and remove any weeds to improve air circulation.
+    \n\n2. Water in the early morning hours, or use a soaker hose, to give the plants time to dry out during the day.
+    \n\n3. Keep the ground under infected plants clean during the summer and wet season to prevent the disease from spreading.
+    \n\n4. Destroy infected plants and remove all related plant debris to keep the infection from spreading to other plants.
+    \n\n5. Choose resistant varieties whenever possible.
+    \n\n6. Use baking soda and hydrogen peroxide sprays to help prevent infection.
+    \n\n\n<a href="https://growfully.com/downy-mildew/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    </string>
+
+
+
+
+    <!-- Leaf Scars / Black Spots Disease -->
+    <string name="scarsSpotsDiseaseTitle">Leaf Scars / Black Spots</string>
+    <string name="scarsSpotsDiseaseDescription">\t\tBlack spot is a fungus that primarily affects roses but can also be found on other ornamental and garden plants. It can be found on flowers, fruits, and leaves and is problematic when the weather is hot and humid. Problems are greatest when leaves stay wet for 6 hours or more.
+        \n\n\t\tBlack spot produces round, black spots with fringed margins that can be up to 1/2 inch in diameter. The spots form on the upper sides of leaves. The leave tissue surrounding the spots turns yellow. Usually lower leaves are infected first, and infected leaves often fall off the plant early.
+        \n\n\t\tBlack spot overwinters in fallen leaves and branches. Water splashing on the soil under plants catapults the spores unto the plants above.
+    </string>
+    <string name="scarsSpotsDiseaseSymptoms">\t\tThe first hint of black spot\'s arrival in your garden comes in the form of dark, round leaf spots with irregular, feathered margins. Unlike many fungal diseases, black spot only strikes the top side of leaves, never the undersides. The lowest parts of the plant show symptoms first. Left unchecked, yellow areas surround the spots and expand to cover entire leaf. The disease worsens and moves up the plant, while infected foliage drops to the ground.
+    </string>
+    <string name="scarsSpotsDiseaseSolution">\t\tAlthough there is no guaranteed cure for black spot disease, try the following remedies, which can slow and prevent the disease from spreading, and use whichever shows the best results:
+    \n\n1. Prune or stake plants and remove any weeds to improve air circulation.
+    \n\n2. Mix together a solution of 1 tbsp. baking soda, 2.5 tbsp. vegetable oil, 1 tsp. liquid soap, and 1 gallon water. Be sure to use liquid soap, not detergent. Since this may potentially burn your leaves, spray a small test area with the solution before spraying the entire plant. If burning is absent or minimal, spray the leaves once every two weeks.
+    \n\n3. Combine 1-part dairy milk to 2-parts water. Spray the leaves once each week. (Sorry, vegans; non-dairy milk substitutes won’t work).
+    \n\n4. Spray the leaves with neem oil once every two weeks.
+    \n\n5. Use fungicides as a last resort if the disease returns for multiple growing seasons. Follow their directions regarding applications. Apply them early, before outbreaks or at the first sign of spots, since they are preventative in nature. Choose organic products if possible for both the plant’s health as well as pollinating insects.
+    \n\n6. Remove the leaves from the area as soon as you prune them. Put them with your regular garbage, preferably in a tied bag.
+    \n\n\n<a href="https://www.wikihow.com/Deal-with-Black-Spot-Leaf-Disease"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    </string>
+
+
+
+
+    <!-- Shot Hole Disease -->
+    <string name="shotHoleDiseaseTitle">Shot Hole</string>
+    <string name="shotHoleDiseaseDescription">\t\tShot hole disease, or coryneum blight, is caused by the fungus Wilsonomyces carpophilus. It is most commonly found on Prunus spp. hosts including almonds, Catalina and Japanese flowering cherries, English laurel, ornamental plums, nectarines, peaches, and especially apricot trees.
+        \n\n\t\tThere are numerous reasons for the appearance of holes in leaves, including poor growing conditions, environmental stress, insect pests feeding on foliage and even droplets of water acting as a magnifying glass in strong sunligh
+    </string>
+    <string name="shotHoleDiseaseSymptoms">\t\tBrown spots develop on leaves, after which the damaged area drops out, leaving round holes in the leaves. Some fungal leaf spot fungi cause larger brown patches, which fall away giving the leaf a ragged appearance. Sometimes you can see traces of fungal growth.
+        \n\n\t\tLeaves are peppered with small round holes and look as if they have been blasted with shotgun pellets. There is often a faint yellow or brown ring around the edge of each hole.
+    </string>
+    <string name="shotHoleDiseaseSolution">\t\tYou can treat and control Shot Hole with the following steps:
+    \n\n1. Where the damage is very unsightly, trim off affected leaves which will encourage new growth, but avoid heavy pruning which stresses the plants and might make the problem worse.
+    \n\n2. Avoid overhead watering and make sure to water the base of the plant, rather than the foliage. Overhead watering can spread the disease and create favorable conditions for fungal growth.
+    \n\n3. A fungicidal soap solution can be used to help control the spread of the disease. Mix 1 tablespoon of soap with 1 gallon of water and spray the solution on the infected plant, making sure to cover both the top and bottom of the leaves. Repeat the treatment every 7-10 days.
+    \n\n4. A baking soda solution can be used to help control the spread of shot hole disease. Mix 1 teaspoon of baking soda with 1 gallon of water and spray the solution on the infected plant, making sure to cover both the top and bottom of the leaves. Repeat the treatment every 7-10 days.
+    \n\n5. Neem oil can also be used to help control shot hole disease. Mix 1-2 teaspoons of neem oil with 1 gallon of water and spray the solution on the infected plant, making sure to cover both the top and bottom of the leaves. Repeat the treatment every 7-10 days.
+    \n\n\n<a href="https://www.davey.com/insect-disease-resource-center/shot-hole-disease/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    </string>
+
+
+
+
+    <!-- Healthy Leaf Disease -->
+    <string name="healthyLeafTitle">Healthy Leaf</string>
+    <string name="healthyLeafDescription">\t\tWhile it might be stating the obvious, it’s crucially important to understand what your plants’ leaves should look like so you’re better able to observe when things go amiss. And while all plants have different growth patterns and characteristics, healthy leaves usually have:
+    \n\n\t• Vigorous Growth
+    \n\n\t• Uniform Color (unless they are naturally variegated)
+    \n\n\t• Open, rather than curled, growth
+    \n\n\n• Upright Appearance
+    \n\n\n<i>Tip: Remember to look at the underside of your plants\’ leaves as well — many damaging insects hide in those hard-to-see places.</i>
+    </string>
+    <string name="healthyLeafDiseaseSolution">\t\tFollow this steps to keep your plants healthy:
+    \n\n1. Similar to how people fertilize crops, you must also fertilize your ornamental plants with the correct fertilizers for healthy growth.
+    \n\n2. You should water ornamentals in the same way as you would your lawn. Water deeply. Give your ornaments a deep soak once a week. It is also a good idea to water in the morning, as this will prevent evaporation. This, in turn, will allow water to reach the roots. You should be aware that some ornamentals like the soil are a little dry; so, refrain from over-watering.
+    \n\n3. You can use stakes to support taller ornamentals and keep them safe from strong winds. Note that a lot of perennials and annuals can become brittle after heavy rains. So, stabilizing is extremely important.
+    \n\n4. Maintain the shape of your ornamental plants and remove diseased or dead branches. To increase air circulation and encourage new growth, you can give your plants some trimming.
+    \n\n5. Make sure you mulch your soil beds every year. Mulch can provide root insulation for plants during the extreme summer heat. Mulch will also help to prevent weed growth. It will also retain moisture in the soil.
+    \n\n6. Another important part of caring effectively for your ornamentals is keeping weeds out. Like all other plants, ornamentals too need sun for their healthy growth. Although mulching is a good way to keep weeds away from your ornamental beds, there are other options too. These include landscape fabric, ornamental bedding treatments, and hand-pulling of weeds.
+    \n\n7. These measures can be implemented as part of your ornamental plant care program to encourage healthy growth and decrease the chances of diseases or pests.
+    \n\n\n<a href="https://unlimitedgreens.com/7-amazing-tips-on-how-to-care-for-ornamental-plants/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    </string>
 </resources>

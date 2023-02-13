@@ -57,8 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Disease Name"
-                android:textSize="20sp"
+                android:text="@string/disease_name"
+                android:textSize="24sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +69,33 @@
                 android:id="@+id/diseaseDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/test"
+                android:textColor="#DCD7D7"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diseaseName" />
+
+            <TextView
+                android:id="@+id/symptomsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Symptoms"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diseaseDesc" />
+
+            <TextView
+                android:id="@+id/symptoms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/test"
@@ -76,7 +103,7 @@
                 android:textColor="#DCD7D7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diseaseName" />
+                app:layout_constraintTop_toBottomOf="@+id/symptomsTitle" />
 
             <TextView
                 android:id="@+id/solutionTitle"
@@ -89,7 +116,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diseaseDesc" />
+                app:layout_constraintTop_toBottomOf="@+id/symptoms" />
 
             <TextView
                 android:id="@+id/solution"
