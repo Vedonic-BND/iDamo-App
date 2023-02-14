@@ -11,19 +11,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.android.vedonic.idamo.databinding.DiagnosisPageBinding
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.diagnosis_page.*
 
 
 class Diagnosis_page: AppCompatActivity() {
 
+    private lateinit var binding: DiagnosisPageBinding
 
+    data class FragmentData(val title: String, val disName: String, val conf: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.diagnosis_page)
+        binding = DiagnosisPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         try {
             ApplicationObject.startMediaManager(this.applicationContext)
@@ -37,53 +46,39 @@ class Diagnosis_page: AppCompatActivity() {
         val intent = intent
         val imageURI = intent.getParcelableExtra<Uri>("plant_image")
         val diseaseName = intent.getStringExtra("disease_name")
+        val confidence = intent.getStringExtra("confidence")
         Log.e("URI", imageURI.toString())
         Log.e("diseaseName", diseaseName.toString())
+        Log.e("confidence", confidence.toString())
 
         if (imageURI != null) {
             uploadToCloudinary(imageURI)
             image.setImageURI(imageURI)
         }
 
+        val fragmentDataList =
+            if (diseaseName != "Healthy Leaf") {
+                listOf<FragmentData>(
+                    FragmentData("Description", "$diseaseName", "$confidence %"),
+                    FragmentData("Symptoms", "$diseaseName", ""),
+                    FragmentData("Solution", "$diseaseName", "")
+                )
+            } else {
+                listOf<FragmentData>(
+                    FragmentData("Description", "$diseaseName", "$confidence %"),
+                    FragmentData("Solution", "$diseaseName", "")
+                )
+            }
 
-        val diseaseNameText = findViewById<TextView>(R.id.diseaseName)
-        val diseaseDescText = findViewById<TextView>(R.id.diseaseDesc)
-        val symptomsText = findViewById<TextView>(R.id.symptomsTitle)
-        val symptomsDescText = findViewById<TextView>(R.id.symptoms)
-        val solutionText = findViewById<TextView>(R.id.solution)
-
-
-        when (diseaseName) {
-            "Downy Mildew" -> {
-                diseaseNameText.setText(R.string.downyMildewDiseaseTitle)
-                diseaseDescText.setText(R.string.downyMildewDiseaseDescription)
-                symptomsDescText.setText(R.string.downyMildewDiseaseSymptoms)
-                solutionText.setText(R.string.downyMildewDiseaseSolution)
-                solutionText.movementMethod = LinkMovementMethod.getInstance()
-            }
-            "Black Spots/Leaf Scars" -> {
-                diseaseNameText.setText(R.string.scarsSpotsDiseaseTitle)
-                diseaseDescText.setText(R.string.scarsSpotsDiseaseDescription)
-                symptomsDescText.setText(R.string.scarsSpotsDiseaseSymptoms)
-                solutionText.setText(R.string.scarsSpotsDiseaseSolution)
-                solutionText.movementMethod = LinkMovementMethod.getInstance()
-            }
-            "Shot Hole" -> {
-                diseaseNameText.setText(R.string.shotHoleDiseaseTitle)
-                diseaseDescText.setText(R.string.shotHoleDiseaseDescription)
-                symptomsDescText.setText(R.string.shotHoleDiseaseSymptoms)
-                solutionText.setText(R.string.shotHoleDiseaseSolution)
-                solutionText.movementMethod = LinkMovementMethod.getInstance()
-            }
-            "Healthy Leaf" -> {
-                diseaseNameText.setText(R.string.healthyLeafTitle)
-                diseaseDescText.setText(R.string.healthyLeafDescription)
-                symptomsText.visibility = View.GONE
-                symptomsDescText.visibility = View.GONE
-                solutionText.setText(R.string.healthyLeafDiseaseSolution)
-                solutionText.movementMethod = LinkMovementMethod.getInstance()
-            }
+        val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = fragmentDataList[position].title
         }
+
+        binding.viewPager.adapter = DiagnosisAdapter(this, fragmentDataList)
+        tabLayoutMediator.attach()
+
+
+
 
         done_btn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
@@ -91,6 +86,147 @@ class Diagnosis_page: AppCompatActivity() {
             finish()
         }
     }
+
+    class DiagnosisAdapter(activity: AppCompatActivity,
+                           private val fragmentDataList: List<FragmentData>
+    ): FragmentStateAdapter(activity) {
+        override fun getItemCount(): Int {
+            Log.e("fragmentDataList SIZE", fragmentDataList.size.toString())
+            return fragmentDataList.size
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            if (fragmentDataList.size == 3) {
+                return when(position) {
+                    0 -> ViewPagerFragmentDescription().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                            putString("confidence", fragmentDataList[position].conf)
+                        }
+                    }
+                    1 -> ViewPagerFragmentSymptoms().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                        }
+                    }
+                    2 -> ViewPagerFragmentSolution().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                        }
+                    }
+                    else -> throw RuntimeException("Invalid position: $position")
+                }
+            }else{
+                return when(position) {
+                    0 -> ViewPagerFragmentDescription().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                            putString("confidence", fragmentDataList[position].conf)
+                        }
+                    }
+                    1 ->  ViewPagerFragmentSolution().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                        }
+                    }
+                    else -> throw RuntimeException("Invalid position: $position")
+                }
+            }
+        }
+
+    }
+
+    class ViewPagerFragmentDescription: Fragment(R.layout.fragment_description) {
+        private val diseaseName: String by lazy {
+            requireArguments().getString("diseaseName") ?: "There's some kind of error. Please try again later."
+        }
+
+        private val confidence: String by lazy {
+            requireArguments().getString("confidence") ?: "There's some kind of error. Please try again later."
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            when (diseaseName) {
+                "Downy Mildew" -> {
+                    view.findViewById<TextView>(R.id.diseaseName)
+                        .setText(R.string.downyMildewDiseaseTitle)
+                    view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.downyMildewDiseaseDescription)
+                }
+                "Black Spots/Leaf Scars" -> {
+                    view.findViewById<TextView>(R.id.diseaseName)
+                        .setText(R.string.scarsSpotsDiseaseTitle)
+                    view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.scarsSpotsDiseaseDescription)
+                }
+                "Shot Hole" -> {
+                    view.findViewById<TextView>(R.id.diseaseName)
+                        .setText(R.string.shotHoleDiseaseTitle)
+                    view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.shotHoleDiseaseDescription)
+                }
+                "Healthy Leaf" -> {
+                    view.findViewById<TextView>(R.id.diseaseName).setText(R.string.healthyLeafTitle)
+                    view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.healthyLeafDescription)
+                }
+            }
+        }
+    }
+
+    class ViewPagerFragmentSymptoms: Fragment(R.layout.fragment_symptoms) {
+        private val diseaseName: String by lazy {
+            requireArguments().getString("diseaseName") ?: "There's some kind of error. Please try again later."
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            when (diseaseName) {
+                "Downy Mildew" -> {
+                    view.findViewById<TextView>(R.id.symptoms).setText(R.string.downyMildewDiseaseSymptoms)
+                }
+                "Black Spots/Leaf Scars" -> {
+                    view.findViewById<TextView>(R.id.symptoms).setText(R.string.scarsSpotsDiseaseSymptoms)
+                }
+                "Shot Hole" -> {
+                    view.findViewById<TextView>(R.id.symptoms).setText(R.string.shotHoleDiseaseSymptoms)
+                }
+                "Healthy Leaf" -> {
+                    view.findViewById<TextView>(R.id.symptoms).visibility = View.GONE
+                    view.findViewById<TextView>(R.id.symptoms).visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    class ViewPagerFragmentSolution: Fragment(R.layout.fragment_solution) {
+        private val diseaseName: String by lazy {
+            requireArguments().getString("diseaseName") ?: "There's some kind of error. Please try again later."
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            when (diseaseName) {
+                "Downy Mildew" -> {
+                    view.findViewById<TextView>(R.id.solution).setText(R.string.downyMildewDiseaseSolution)
+                    view.findViewById<TextView>(R.id.solution).movementMethod = LinkMovementMethod.getInstance()
+                }
+                "Black Spots/Leaf Scars" -> {
+                    view.findViewById<TextView>(R.id.solution).setText(R.string.scarsSpotsDiseaseSolution)
+                    view.findViewById<TextView>(R.id.solution).movementMethod = LinkMovementMethod.getInstance()
+                }
+                "Shot Hole" -> {
+                    view.findViewById<TextView>(R.id.solution).setText(R.string.shotHoleDiseaseSolution)
+                    view.findViewById<TextView>(R.id.solution).movementMethod = LinkMovementMethod.getInstance()
+                }
+                "Healthy Leaf" -> {
+                    view.findViewById<TextView>(R.id.solution).setText(R.string.healthyLeafDiseaseSolution)
+                    view.findViewById<TextView>(R.id.solution).movementMethod = LinkMovementMethod.getInstance()
+                }
+            }
+        }
+    }
+
 
     private fun uploadToCloudinary(filepath: Uri) {
 

@@ -83,27 +83,33 @@ class weather_container : Fragment() {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
                     val location: Location? = task.result
                     if (location != null) {
-                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)!!
+                        try {
+                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                            val list: List<Address> =
+                                geocoder.getFromLocation(location.latitude, location.longitude, 1)!!
 
-//                        Log.e("lat", "${list[0].latitude}")
-//                        Log.e("long", "${list[0].longitude}")
-//                        Log.e("country", "${list[0].countryName}")
-//                        Log.e("locality", "${list[0].locality}")
-//                        Log.e("adminArea", "${list[0].adminArea}")
-//                        Log.e("subadminArea", "${list[0].subAdminArea}")
-//                        Log.e("thoroughfare", "${list[0].thoroughfare}")
-//                        Log.e("address", "${list[0].getAddressLine(0)}")
+    //                        Log.e("lat", "${list[0].latitude}")
+    //                        Log.e("long", "${list[0].longitude}")
+    //                        Log.e("country", "${list[0].countryName}")
+    //                        Log.e("locality", "${list[0].locality}")
+    //                        Log.e("adminArea", "${list[0].adminArea}")
+    //                        Log.e("subadminArea", "${list[0].subAdminArea}")
+    //                        Log.e("thoroughfare", "${list[0].thoroughfare}")
+    //                        Log.e("address", "${list[0].getAddressLine(0)}")
 
-                        if (list.isNotEmpty()) {
-                            currentLocation = list[0].locality + " City, " + list[0].subAdminArea
+                            if (list.isNotEmpty()) {
+                                currentLocation = list[0].locality + " City, " + list[0].subAdminArea
 
-                            getWeatherInfo(currentLocation)
+                                getWeatherInfo(currentLocation)
 
-                            // Use the address information to retrieve weather information
-                        } else {
-                            throw IOException("Service not Available")
+                                // Use the address information to retrieve weather information
+                            } else {
+                                throw IOException("Service not Available")
+                            }
+
+                        } catch (e: Exception) {
+                            Log.e("location error:", e.toString())
+                            Toast.makeText(requireContext(), "Error finding your location. Please try again later.", Toast.LENGTH_SHORT).show()
                         }
 
                     }

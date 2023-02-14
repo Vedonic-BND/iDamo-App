@@ -222,6 +222,7 @@ class hyp_container : Fragment() {
                 val intent = Intent (activity, Diagnosis_page::class.java)
                 intent.putExtra("plant_image", filePath)
                 intent.putExtra("disease_name", resultText)
+                intent.putExtra("confidence", confidence.toString())
                 activity?.startActivity(intent)
 
                 // Releases model resources if no longer used.
@@ -267,6 +268,7 @@ class hyp_container : Fragment() {
                 val intent = Intent (activity, Diagnosis_page::class.java)
                 intent.putExtra("plant_image", filePath)
                 intent.putExtra("disease_name", resultText)
+                intent.putExtra("confidence", confidence.toString())
                 activity?.startActivity(intent)
 
                 // Releases model resources if no longer used.
@@ -312,6 +314,7 @@ class hyp_container : Fragment() {
                 val intent = Intent (activity, Diagnosis_page::class.java)
                 intent.putExtra("plant_image", filePath)
                 intent.putExtra("disease_name", resultText)
+                intent.putExtra("confidence", confidence.toString())
                 activity?.startActivity(intent)
 
                 // Releases model resources if no longer used.
@@ -357,6 +360,7 @@ class hyp_container : Fragment() {
                 val intent = Intent (activity, Diagnosis_page::class.java)
                 intent.putExtra("plant_image", filePath)
                 intent.putExtra("disease_name", resultText)
+                intent.putExtra("confidence", confidence.toString())
                 activity?.startActivity(intent)
 
                 // Releases model resources if no longer used.
@@ -402,6 +406,7 @@ class hyp_container : Fragment() {
                 val intent = Intent (activity, Diagnosis_page::class.java)
                 intent.putExtra("plant_image", filePath)
                 intent.putExtra("disease_name", resultText)
+                intent.putExtra("confidence", confidence.toString())
                 activity?.startActivity(intent)
 
                 // Releases model resources if no longer used.
