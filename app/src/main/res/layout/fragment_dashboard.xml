@@ -64,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/container1_title"
-                android:name="com.android.vedonic.idamo.fragments.hyp_container"
+                android:name="com.android.iDamoTeam.idamo.fragments.hyp_container"
                 tools:layout="@layout/fragment_hyp_container" />
 
             <TextView
@@ -92,7 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/container2_title"
-                android:name="com.android.vedonic.idamo.fragments.weather_container"
+                android:name="com.android.iDamoTeam.idamo.fragments.weather_container"
                 tools:layout="@layout/fragment_weather_container" />
 
 

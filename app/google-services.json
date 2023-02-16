@@ -8,6 +8,46 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1094887214290:android:75a308ceb10b6e0448b10b",
+        "android_client_info": {
+          "package_name": "com.android.iDamoTeam.idamo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094887214290-r1de2lfi5f4ieno7a4kk1sfd75folrbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.iDamoTeam.idamo",
+            "certificate_hash": "021338ca70119aa1b3e23a21bb4666e28f097f67"
+          }
+        },
+        {
+          "client_id": "1094887214290-k2d6anue73e3i05v3nic6i8trsqhdi1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBIlwZIbnDH3tcS8dQgWKyug3dWtIpE9U"
+        },
+        {
+          "current_key": "AIzaSyATGP6LBWLUAsXeo9wtOG_ceSFB3SNUuEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094887214290-k2d6anue73e3i05v3nic6i8trsqhdi1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1094887214290:android:1111d0b432f2dad048b10b",
         "android_client_info": {
           "package_name": "com.android.vedonic.idamo"
@@ -28,6 +68,9 @@
         }
       ],
       "api_key": [
+        {
+          "current_key": "AIzaSyCBIlwZIbnDH3tcS8dQgWKyug3dWtIpE9U"
+        },
         {
           "current_key": "AIzaSyATGP6LBWLUAsXeo9wtOG_ceSFB3SNUuEc"
         }

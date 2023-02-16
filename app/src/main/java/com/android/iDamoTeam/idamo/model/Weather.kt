@@ -1,0 +1,64 @@
+package com.android.iDamoTeam.idamo.model
+
+import com.google.firebase.firestore.PropertyName
+
+data class Weather(
+    @get:PropertyName("time") @set:PropertyName("time") var time: String = "",
+    @get:PropertyName("temperature") @set:PropertyName("temperature") var temperature: String = "",
+    @get:PropertyName("icon") @set:PropertyName("icon") var icon: String = "",
+    @get:PropertyName("condition") @set:PropertyName("condition") var condition: String = ""
+)
+
+
+
+//  {
+//    private var time: String = ""
+//    private var temperature: String = ""
+//    private var icon: String = ""
+//    private var condition: String = ""
+//
+//    constructor()
+//
+//    constructor(time: String, temperature: String, icon: String, condition: String) {
+//        this.time = time
+//        this.temperature = temperature
+//        this.icon = icon
+//        this.condition = condition
+//
+//    }
+//
+//    fun getTime(): String {
+//        return time
+//    }
+//
+//    fun setTime(time: String) {
+//        this.time = time
+//    }
+//
+//
+//    fun getTemperature(): String {
+//        return temperature
+//    }
+//
+//    fun setTemperature(temperature: String) {
+//        this.temperature = temperature
+//    }
+//
+//
+//    fun getIcon(): String {
+//        return icon
+//    }
+//
+//    fun setIcon(icon: String) {
+//        this.icon = icon
+//    }
+//
+//
+//    fun getCondition(): String {
+//        return condition
+//    }
+//
+//    fun setCondition(condition: String) {
+//        this.condition = condition
+//    }
+//  }
