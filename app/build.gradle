@@ -26,7 +26,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.android.vedonic.idamo"
+        applicationId "com.android.iDamoTeam.idamo"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -52,7 +52,7 @@ android {
     }
 
     buildToolsVersion '31.0.0'
-    namespace 'com.android.vedonic.idamo'
+    namespace 'com.android.iDamoTeam.idamo'
 }
 
 dependencies {
