@@ -1,5 +1,6 @@
 package com.android.iDamoTeam.idamo
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +20,8 @@ import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.diagnosis_page.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 class Diagnosis_page: AppCompatActivity() {
@@ -46,6 +49,8 @@ class Diagnosis_page: AppCompatActivity() {
         val imageURI = intent.getParcelableExtra<Uri>("plant_image")
         val diseaseName = intent.getStringExtra("disease_name")
         val confidence = intent.getStringExtra("confidence")
+        var confidenceFormat = confidence?.toDouble()
+        val confidenceFinal = BigDecimal(confidenceFormat!!.toDouble()).setScale(2, RoundingMode.HALF_EVEN)
         Log.e("URI", imageURI.toString())
         Log.e("diseaseName", diseaseName.toString())
         Log.e("confidence", confidence.toString())
@@ -58,13 +63,13 @@ class Diagnosis_page: AppCompatActivity() {
         val fragmentDataList =
             if (diseaseName != "Healthy Leaf") {
                 listOf<FragmentData>(
-                    FragmentData("Description", "$diseaseName", "$confidence %"),
+                    FragmentData("Description", "$diseaseName", "$confidenceFinal%"),
                     FragmentData("Symptoms", "$diseaseName", ""),
                     FragmentData("Solution", "$diseaseName", "")
                 )
             } else {
                 listOf<FragmentData>(
-                    FragmentData("Description", "$diseaseName", "$confidence %"),
+                    FragmentData("Description", "$diseaseName", "$confidenceFinal%"),
                     FragmentData("Solution", "$diseaseName", "")
                 )
             }
@@ -144,6 +149,7 @@ class Diagnosis_page: AppCompatActivity() {
             requireArguments().getString("confidence") ?: "There's some kind of error. Please try again later."
         }
 
+        @SuppressLint("SetTextI18n")
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
@@ -151,20 +157,24 @@ class Diagnosis_page: AppCompatActivity() {
                 "Downy Mildew" -> {
                     view.findViewById<TextView>(R.id.diseaseName)
                         .setText(R.string.downyMildewDiseaseTitle)
+                    view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.downyMildewDiseaseDescription)
                 }
                 "Black Spots/Leaf Scars" -> {
                     view.findViewById<TextView>(R.id.diseaseName)
                         .setText(R.string.scarsSpotsDiseaseTitle)
+                    view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.scarsSpotsDiseaseDescription)
                 }
                 "Shot Hole" -> {
                     view.findViewById<TextView>(R.id.diseaseName)
                         .setText(R.string.shotHoleDiseaseTitle)
+                    view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.shotHoleDiseaseDescription)
                 }
                 "Healthy Leaf" -> {
                     view.findViewById<TextView>(R.id.diseaseName).setText(R.string.healthyLeafTitle)
+                    view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.healthyLeafDescription)
                 }
             }
