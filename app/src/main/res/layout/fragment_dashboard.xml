@@ -26,7 +26,7 @@
         app:menu="@menu/kebab"/>
 
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/dashboard_scroll"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -68,6 +68,34 @@
                 tools:layout="@layout/fragment_hyp_container" />
 
             <TextView
+                android:id="@+id/container3_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:fontFamily="@font/allerta_stencil"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/library"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_Container_View"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_Container_View_3"
+                android:layout_width="330dp"
+                android:layout_height="180dp"
+                android:background="@drawable/shadow"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container3_title"
+                android:name="com.android.iDamoTeam.idamo.fragments.LibraryFragment"
+                tools:layout="@layout/fragment_library" />
+
+            <TextView
                 android:id="@+id/container2_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +108,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_Container_View"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_Container_View_3"
                 tools:ignore="MissingConstraints" />
 
             <androidx.fragment.app.FragmentContainerView
@@ -103,7 +131,7 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/take_a_picture_btn"
