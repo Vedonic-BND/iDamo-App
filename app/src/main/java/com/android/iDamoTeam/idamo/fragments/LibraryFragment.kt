@@ -1,14 +1,18 @@
 package com.android.iDamoTeam.idamo.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.android.iDamoTeam.idamo.LibraryActivity
 import com.android.iDamoTeam.idamo.R
 import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageClickListener
 import com.synnapps.carouselview.ImageListener
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +47,6 @@ class LibraryFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_library, container, false)
 
-
         imageArray.add(R.drawable.dis_lib)
         imageArray.add(R.drawable.home_rem)
         imageArray.add(R.drawable.watch_vid)
@@ -52,6 +55,13 @@ class LibraryFragment : Fragment() {
         carouselView = view.findViewById(R.id.carouselView)
         carouselView!!.pageCount = imageArray.size
         carouselView!!.setImageListener(imageListener)
+
+        carouselView!!.setImageClickListener(ImageClickListener { position ->
+            val intent = Intent(requireActivity(), LibraryActivity::class.java)
+            startActivity(intent)
+            activity?.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
+        })
+
         return view
     }
 

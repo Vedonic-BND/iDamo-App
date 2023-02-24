@@ -38,6 +38,7 @@
             android:elevation="3dp"
             app:tabTextColor="@color/white"
             app:tabMode="auto"
+            app:tabIndicatorHeight="0dp"
             >
 
         </com.google.android.material.tabs.TabLayout>

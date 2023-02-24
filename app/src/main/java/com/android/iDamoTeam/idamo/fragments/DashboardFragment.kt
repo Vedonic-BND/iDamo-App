@@ -25,12 +25,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.iDamoTeam.idamo.Diagnosis_page
+import com.android.iDamoTeam.idamo.LibraryActivity
 import com.android.iDamoTeam.idamo.Login_page
 import com.android.iDamoTeam.idamo.ml.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_library.*
 import kotlinx.android.synthetic.main.send_msg_item.*
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
@@ -145,9 +147,6 @@ class DashboardFragment : Fragment() {
             }
 
         }
-
-
-
 
         return v
     }
