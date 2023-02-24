@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -19,6 +20,9 @@ import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.google.android.material.tabs.TabLayoutMediator
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.synthetic.main.diagnosis_page.*
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -65,12 +69,14 @@ class Diagnosis_page: AppCompatActivity() {
                 listOf<FragmentData>(
                     FragmentData("Description", "$diseaseName", "$confidenceFinal%"),
                     FragmentData("Symptoms", "$diseaseName", ""),
-                    FragmentData("Solution", "$diseaseName", "")
+                    FragmentData("Solution", "$diseaseName", ""),
+                    FragmentData("Video", "$diseaseName", "")
                 )
             } else {
                 listOf<FragmentData>(
                     FragmentData("Description", "$diseaseName", "$confidenceFinal%"),
-                    FragmentData("Solution", "$diseaseName", "")
+                    FragmentData("Solution", "$diseaseName", ""),
+                    FragmentData("Video", "$diseaseName", "")
                 )
             }
 
@@ -100,7 +106,7 @@ class Diagnosis_page: AppCompatActivity() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            if (fragmentDataList.size == 3) {
+            if (fragmentDataList.size == 4) {
                 return when(position) {
                     0 -> ViewPagerFragmentDescription().apply {
                         arguments = Bundle().apply {
@@ -118,6 +124,11 @@ class Diagnosis_page: AppCompatActivity() {
                             putString("diseaseName", fragmentDataList[position].disName)
                         }
                     }
+                    3 -> ViewPagerFragmentVideo().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                        }
+                    }
                     else -> throw RuntimeException("Invalid position: $position")
                 }
             }else{
@@ -129,6 +140,11 @@ class Diagnosis_page: AppCompatActivity() {
                         }
                     }
                     1 ->  ViewPagerFragmentSolution().apply {
+                        arguments = Bundle().apply {
+                            putString("diseaseName", fragmentDataList[position].disName)
+                        }
+                    }
+                    2 -> ViewPagerFragmentVideo().apply {
                         arguments = Bundle().apply {
                             putString("diseaseName", fragmentDataList[position].disName)
                         }
@@ -231,6 +247,178 @@ class Diagnosis_page: AppCompatActivity() {
                 "Healthy Leaf" -> {
                     view.findViewById<TextView>(R.id.solution).setText(R.string.healthyLeafDiseaseSolution)
                     view.findViewById<TextView>(R.id.solution).movementMethod = LinkMovementMethod.getInstance()
+                }
+            }
+        }
+    }
+
+    class ViewPagerFragmentVideo: Fragment(R.layout.fragment_video) {
+        private val diseaseName: String by lazy {
+            requireArguments().getString("diseaseName") ?: "There's some kind of error. Please try again later."
+        }
+
+        @SuppressLint("SetTextI18n", "CutPasteId")
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            when (diseaseName) {
+                "Downy Mildew" -> {
+                    view.findViewById<TextView>(R.id.firstVideoTitle).text = "Baking Soda Solution:"
+
+                    val ytSolutionFirst: YouTubePlayerView = view.findViewById(R.id.ytSolutionFirst)
+                    lifecycle.addObserver(ytSolutionFirst)
+
+                    ytSolutionFirst.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "2i6giJc97ws"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.secondVideoTitle).text = "Milk Solution:"
+
+                    val ytSolutionSecond: YouTubePlayerView = view.findViewById(R.id.ytSolutionSecond)
+                    lifecycle.addObserver(ytSolutionSecond)
+
+                    ytSolutionSecond.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "320D-41xt-M"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.thirdVideoTitle).text = "Neem Oil:"
+
+                    val ytSolutionThird: YouTubePlayerView = view.findViewById(R.id.ytSolutionThird)
+                    lifecycle.addObserver(ytSolutionThird)
+
+                    ytSolutionThird.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "u9AIuIsnEGs"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+                }
+                "Black Spots/Leaf Scars" -> {
+                    view.findViewById<TextView>(R.id.firstVideoTitle).text = "Dairy Milk Solution:"
+
+                    val ytSolutionFirst: YouTubePlayerView = view.findViewById(R.id.ytSolutionFirst)
+                    lifecycle.addObserver(ytSolutionFirst)
+
+                    ytSolutionFirst.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "2i6giJc97ws"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.secondVideoTitle).text = "Baking Soda Solution:"
+
+                    val ytSolutionSecond: YouTubePlayerView = view.findViewById(R.id.ytSolutionSecond)
+                    lifecycle.addObserver(ytSolutionSecond)
+
+                    ytSolutionSecond.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "320D-41xt-M"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.thirdVideoTitle).text = "Neem Oil:"
+
+                    val ytSolutionThird: YouTubePlayerView = view.findViewById(R.id.ytSolutionThird)
+                    lifecycle.addObserver(ytSolutionThird)
+
+                    ytSolutionThird.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "u9AIuIsnEGs"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+                }
+                "Shot Hole" -> {
+                    view.findViewById<TextView>(R.id.firstVideoTitle).text = "Fungicidal Solution:"
+
+                    val ytSolutionFirst: YouTubePlayerView = view.findViewById(R.id.ytSolutionFirst)
+                    lifecycle.addObserver(ytSolutionFirst)
+
+                    ytSolutionFirst.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "9vcblls4agc"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.secondVideoTitle).text = "Baking Soda Solution:"
+
+                    val ytSolutionSecond: YouTubePlayerView = view.findViewById(R.id.ytSolutionSecond)
+                    lifecycle.addObserver(ytSolutionSecond)
+
+                    ytSolutionSecond.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "320D-41xt-M"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.thirdVideoTitle).text = "Neem Oil:"
+
+                    val ytSolutionThird: YouTubePlayerView = view.findViewById(R.id.ytSolutionThird)
+                    lifecycle.addObserver(ytSolutionThird)
+
+                    ytSolutionThird.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "u9AIuIsnEGs"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+                }
+                "Healthy Leaf" -> {
+                    view.findViewById<TextView>(R.id.firstVideoTitle).text = "When and How to Prune:"
+
+                    val ytSolutionFirst: YouTubePlayerView = view.findViewById(R.id.ytSolutionFirst)
+                    lifecycle.addObserver(ytSolutionFirst)
+
+                    ytSolutionFirst.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "dQn_MGt-ZRQ"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+
+                    view.findViewById<TextView>(R.id.secondVideoTitle).text = "Plant Care:"
+
+                    val ytSolutionSecond: YouTubePlayerView = view.findViewById(R.id.ytSolutionSecond)
+                    lifecycle.addObserver(ytSolutionSecond)
+
+                    ytSolutionSecond.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                            val videoId = "J1LW1Nz0pd4"
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    })
+
+                    view.findViewById<TextView>(R.id.thirdVideoTitle).visibility = View.GONE
+                    view.findViewById<YouTubePlayerView>(R.id.ytSolutionThird).visibility = View.GONE
                 }
             }
         }
