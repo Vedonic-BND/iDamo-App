@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.iDamoTeam.idamo.utils.ProfanityCheckerUtils
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -36,11 +37,18 @@ class Ask_community_page: AppCompatActivity() {
 
     private val GALLERY_REQUEST_CODE = 1234
 
+    private lateinit var progressDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ask_community)
 
         storagePostPicRef = FirebaseStorage.getInstance().reference.child("Post Pictures")
+
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Ask Community")
+        progressDialog.setMessage("Publishing your Post...")
+        progressDialog.setCancelable(false)
 
         pickFromGallery()
 
@@ -50,70 +58,81 @@ class Ask_community_page: AppCompatActivity() {
         }
 
         val publish_post = findViewById<MaterialButton>(R.id.publish_post)
-        publish_post.setOnClickListener { publishPost() }
+        publish_post.setOnClickListener {
+            publishPost()
+        }
 
 
     }
 
     private fun publishPost() {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Ask Community")
-        progressDialog.setMessage("Publishing your Post...")
 
-
-        if (
-            description_post.text.toString() == ""){
-                Toast.makeText(this, "Please write the description.", Toast.LENGTH_SHORT).show()
-            }
-            else if (imageUri == null) {
-                Toast.makeText(this, "Please select your image.", Toast.LENGTH_SHORT).show()
-            }
-
-            else {
-                progressDialog.show()
-                val fileRef = storagePostPicRef!!.child(System.currentTimeMillis().toString() + ".jpg")
-
-                var uploadTask: StorageTask<*>
-                uploadTask = fileRef.putFile(imageUri!!)
-
-                uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
-                    if (!task.isSuccessful){
-                        task.exception?.let{
-                            throw it
-                        }
-                    }
-                    return@Continuation fileRef.downloadUrl
-                }).addOnCompleteListener ( OnCompleteListener<Uri>{ task ->
-                    if (task.isSuccessful){
-                        val downloadUrl = task.result
-                        myUrl = downloadUrl.toString()
-
-                        //firestore
-                        val ref = FirebaseFirestore.getInstance().collection("Posts")
-                        val postId = Date().time.toString()
-
-                        val postMap = HashMap<String, Any>()
-                        postMap["postid"] = postId!!
-                        postMap["description"] = description_post.text.toString()
-                        postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
-                        postMap["postimage"] = myUrl
-
-                        //firestore
-                        ref.document(postId).set(postMap)
-
-                        Toast.makeText(this, "Post has been published successfully!", Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
-                        finish()
+        if (description_post.text.toString() == ""){
+            Toast.makeText(this, "Please write the description.", Toast.LENGTH_SHORT).show()
+        }
+        else if (imageUri == null) {
+            Toast.makeText(this, "Please select your image.", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            progressDialog.show()
+            val check = description_post?.text.toString()
+            Log.e("check", check)
+            ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                Log.e("result", result)
+                if (result == "true") {
+                    runOnUiThread {
+                        Toast.makeText(this, "Please refrain from using profanity words.", Toast.LENGTH_SHORT).show()
                         progressDialog.dismiss()
                     }
-                    else{
-                        progressDialog.dismiss()
+                } else {
+                    Log.e("text", description_post?.text.toString())
+                    runOnUiThread {
+                        val fileRef = storagePostPicRef!!.child(System.currentTimeMillis().toString() + ".jpg")
+
+                        var uploadTask: StorageTask<*>
+                        uploadTask = fileRef.putFile(imageUri!!)
+
+                        uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
+                            if (!task.isSuccessful){
+                                task.exception?.let{
+                                    throw it
+                                }
+                            }
+                            return@Continuation fileRef.downloadUrl
+                        }).addOnCompleteListener ( OnCompleteListener<Uri>{ task ->
+                            if (task.isSuccessful){
+                                val downloadUrl = task.result
+                                myUrl = downloadUrl.toString()
+
+                                //firestore
+                                val ref = FirebaseFirestore.getInstance().collection("Posts")
+                                val postId = Date().time.toString()
+
+                                val postMap = HashMap<String, Any>()
+                                postMap["postid"] = postId!!
+                                postMap["description"] = description_post.text.toString()
+                                postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
+                                postMap["postimage"] = myUrl
+
+                                //firestore
+                                ref.document(postId).set(postMap)
+
+                                Toast.makeText(this, "Post has been published successfully!", Toast.LENGTH_SHORT).show()
+
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
+                                finish()
+                                progressDialog.dismiss()
+                            }
+                            else{
+                                progressDialog.dismiss()
+                            }
+                        })
                     }
-                })
+                }
             }
+        }
     }
 
 

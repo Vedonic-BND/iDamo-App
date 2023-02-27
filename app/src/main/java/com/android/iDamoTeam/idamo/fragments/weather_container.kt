@@ -198,6 +198,7 @@ class weather_container : Fragment() {
 
                 }catch (e: Exception) {
                     e.printStackTrace()
+                    throw Exception(e.message.toString())
                 }
 
                 val forcastOBJ = response.getJSONObject("forecast")
@@ -237,9 +238,9 @@ class weather_container : Fragment() {
             }
 
         }, { error ->
-
             Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show()
             Log.d("Response", error.message.toString())
+            throw Exception(error.message.toString())
         })
 
         requestQueue.add(jsonObjectRequest)

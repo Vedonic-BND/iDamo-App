@@ -4,14 +4,18 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.android.iDamoTeam.idamo.utils.ProfanityCheckerUtils
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_comments.*
 
 class EditCommentActivity : AppCompatActivity() {
 
@@ -38,8 +42,8 @@ class EditCommentActivity : AppCompatActivity() {
 
 
         progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Please Wait")
-        progressDialog.setMessage("Loading...")
+        progressDialog.setTitle("Edit Comment")
+        progressDialog.setMessage("Saving your changes...")
         progressDialog.setCancelable(false)
 
         val profileImage = findViewById<CircleImageView>(R.id.image_profile)
@@ -52,16 +56,36 @@ class EditCommentActivity : AppCompatActivity() {
         getComment(comment_edit)
 
         val save_comment_btn = findViewById<MaterialButton>(R.id.save_comment)
-        save_comment_btn.setOnClickListener { savePost(comment_edit, publisherID) }
+        save_comment_btn.setOnClickListener {
+            if (TextUtils.isEmpty(comment_edit.text.toString())){
+                Toast.makeText(this, "No comment added.", Toast.LENGTH_SHORT).show()
+            }else{
+                progressDialog.show()
+
+                val check = comment_edit?.text.toString()
+                Log.e("check", check)
+                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                    Log.e("result", result)
+                    if (result == "true") {
+                        runOnUiThread {
+                            Toast.makeText(this, "Please refrain from using profanity words.", Toast.LENGTH_SHORT).show()
+                            progressDialog.dismiss()
+                        }
+                    } else {
+                        Log.e("text", comment_edit?.text.toString())
+                        runOnUiThread {
+                            saveComment(comment_edit, publisherID)
+                            comment_edit?.setText("")
+                        }
+                    }
+                }
+            }
+
+        }
 
     }
 
-    private fun savePost(comment_edit: EditText, publisherID: String) {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Edit Comment")
-        progressDialog.setMessage("Saving your changes...")
-        progressDialog.show()
-
+    private fun saveComment(comment_edit: EditText, publisherID: String) {
         val userRef = FirebaseFirestore.getInstance().collection("Posts").document(postID)
             .collection("Comments").document(commentID)
 

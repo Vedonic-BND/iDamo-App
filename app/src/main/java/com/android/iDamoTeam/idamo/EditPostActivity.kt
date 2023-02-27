@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.android.iDamoTeam.idamo.utils.ProfanityCheckerUtils
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
@@ -54,8 +55,8 @@ class EditPostActivity : AppCompatActivity() {
 
 
         progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Please Wait")
-        progressDialog.setMessage("Loading...")
+        progressDialog.setTitle("Edit Post")
+        progressDialog.setMessage("Saving your changes...")
         progressDialog.setCancelable(false)
 
 
@@ -91,29 +92,55 @@ class EditPostActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please write your Bio.", Toast.LENGTH_SHORT).show()
             }
             else -> {
-                //firebase database
-                //val userRef = FirebaseDatabase.getInstance().reference.child("profile")
+                progressDialog.show()
 
-                //firestore
-                val userRef = FirebaseFirestore.getInstance().collection("Posts").document(postID)
+                val check = post_description?.text.toString()
+                Log.e("check", check)
+                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                    Log.e("result", result)
+                    if (result == "true") {
+                        runOnUiThread {
+                            Toast.makeText(
+                                this,
+                                "Please refrain from using profanity words.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            progressDialog.dismiss()
+                        }
+                    } else {
+                        runOnUiThread {
+                            //firebase database
+                            //val userRef = FirebaseDatabase.getInstance().reference.child("profile")
 
-                val userMap = HashMap<String, Any>()
-                userMap["description"] = post_description.text.toString()
+                            //firestore
+                            val userRef =
+                                FirebaseFirestore.getInstance().collection("Posts").document(postID)
+
+                            val userMap = HashMap<String, Any>()
+                            userMap["description"] = post_description.text.toString()
 
 
-                userRef.update(userMap)
+                            userRef.update(userMap)
 
-                //firebase database
-                //userRef.child(firebaseUser.uid).updateChildren(userMap)
+                            //firebase database
+                            //userRef.child(firebaseUser.uid).updateChildren(userMap)
 
-                checker = ""
+                            checker = ""
 
-                Toast.makeText(this, "Post has been updated successfully!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this,
+                                "Post has been updated successfully!",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
-                finish()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up)
+                            finish()
+                            progressDialog.dismiss()
+                        }
+                    }
+                }
             }
         }
     }
@@ -121,11 +148,7 @@ class EditPostActivity : AppCompatActivity() {
 
 
     private fun savePost(post_description: EditText) {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Edit Post")
-        progressDialog.setMessage("Saving your changes...")
         progressDialog.show()
-
 
         when {
             post_description.text.toString() == "" -> {
@@ -135,50 +158,65 @@ class EditPostActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please select your image.", Toast.LENGTH_SHORT).show()
             }
             else -> {
-                val fileRef = storagePostPicRef!!.child(firebaseUser!!.uid + ".jpg")
+                val check = post_description?.text.toString()
+                Log.e("check", check)
+                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                    Log.e("result", result)
+                    if (result == "true") {
+                        runOnUiThread {
+                            Toast.makeText(this, "Please refrain from using profanity words.", Toast.LENGTH_SHORT).show()
+                            progressDialog.dismiss()
+                        }
+                    } else {
+                        Log.e("text", post_description?.text.toString())
+                        runOnUiThread {
+                            val fileRef = storagePostPicRef!!.child(firebaseUser!!.uid + ".jpg")
 
-                var uploadTask: StorageTask<*>
-                uploadTask = fileRef.putFile(imageUri!!)
-                uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
-                    if (!task.isSuccessful){
-                        task.exception?.let{
-                            throw it
+                            var uploadTask: StorageTask<*>
+                            uploadTask = fileRef.putFile(imageUri!!)
+                            uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
+                                if (!task.isSuccessful){
+                                    task.exception?.let{
+                                        throw it
+                                    }
+                                }
+                                return@Continuation fileRef.downloadUrl
+                            }).addOnCompleteListener ( OnCompleteListener<Uri>{ task ->
+                                if (task.isSuccessful){
+                                    val downloadUrl = task.result
+                                    myUrl = downloadUrl.toString()
+
+                                    //firebase database
+                                    //val ref = FirebaseDatabase.getInstance().reference.child("profile")
+
+                                    //firestore
+                                    val ref = FirebaseFirestore.getInstance().collection("Posts")
+
+
+                                    val userMap = HashMap<String, Any>()
+                                    userMap["description"] = post_description.text.toString()
+                                    userMap["image"] = myUrl
+
+                                    ref.document(postID).update(userMap)
+
+                                    //firebase database
+                                    //userRef.child(firebaseUser.uid).updateChildren(userMap)
+
+                                    Toast.makeText(this, "Account information has ben updated successfully!", Toast.LENGTH_SHORT).show()
+
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
+                                    finish()
+                                    progressDialog.dismiss()
+                                }
+                                else{
+                                    progressDialog.dismiss()
+                                }
+                            })
                         }
                     }
-                    return@Continuation fileRef.downloadUrl
-                }).addOnCompleteListener ( OnCompleteListener<Uri>{ task ->
-                    if (task.isSuccessful){
-                        val downloadUrl = task.result
-                        myUrl = downloadUrl.toString()
-
-                        //firebase database
-                        //val ref = FirebaseDatabase.getInstance().reference.child("profile")
-
-                        //firestore
-                        val ref = FirebaseFirestore.getInstance().collection("Posts")
-
-
-                        val userMap = HashMap<String, Any>()
-                        userMap["description"] = post_description.text.toString()
-                        userMap["image"] = myUrl
-
-                        ref.document(postID).update(userMap)
-
-                        //firebase database
-                        //userRef.child(firebaseUser.uid).updateChildren(userMap)
-
-                        Toast.makeText(this, "Account information has ben updated successfully!", Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up)
-                        finish()
-                        progressDialog.dismiss()
-                    }
-                    else{
-                        progressDialog.dismiss()
-                    }
-                })
+                }
             }
         }
 

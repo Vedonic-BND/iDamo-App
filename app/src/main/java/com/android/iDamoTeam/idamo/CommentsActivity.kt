@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.iDamoTeam.idamo.Adapter.CommentAdapter
 import com.android.iDamoTeam.idamo.model.Comment
 import com.android.iDamoTeam.idamo.model.User
+import com.android.iDamoTeam.idamo.utils.ProfanityCheckerUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -62,8 +64,20 @@ class CommentsActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(addComment?.text.toString())){
                 Toast.makeText(this, "No comment added.", Toast.LENGTH_SHORT).show()
             }else{
-                putComment()
-                addComment?.setText("")
+                val check = addComment?.text.toString()
+                Log.e("check", check)
+                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                    Log.e("result", result)
+                    if (result == "true") {
+                        runOnUiThread {
+                            Toast.makeText(this@CommentsActivity, "Please refrain from using profanity words.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Log.e("text", addComment?.text.toString())
+                        putComment()
+                        addComment?.setText("")
+                    }
+                }
             }
         }
 
