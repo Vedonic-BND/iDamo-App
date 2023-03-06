@@ -1,6 +1,7 @@
 package com.android.iDamoTeam.idamo
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -66,7 +67,8 @@ class CommentsActivity : AppCompatActivity() {
             }else{
                 val check = addComment?.text.toString()
                 Log.e("check", check)
-                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                val profanityList = ProfanityCheckerUtils.loadProfanityListFromFile(this, R.raw.filipino_profanity_words)
+                ProfanityCheckerUtils.checkForProfanity(check, profanityList) { result ->
                     Log.e("result", result)
                     if (result == "true") {
                         runOnUiThread {

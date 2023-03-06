@@ -96,7 +96,8 @@ class EditPostActivity : AppCompatActivity() {
 
                 val check = post_description?.text.toString()
                 Log.e("check", check)
-                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                val profanityList = ProfanityCheckerUtils.loadProfanityListFromFile(this, R.raw.filipino_profanity_words)
+                ProfanityCheckerUtils.checkForProfanity(check, profanityList) { result ->
                     Log.e("result", result)
                     if (result == "true") {
                         runOnUiThread {
@@ -160,7 +161,8 @@ class EditPostActivity : AppCompatActivity() {
             else -> {
                 val check = post_description?.text.toString()
                 Log.e("check", check)
-                ProfanityCheckerUtils.checkForProfanity(check) { result ->
+                val profanityList = ProfanityCheckerUtils.loadProfanityListFromFile(this, R.raw.filipino_profanity_words)
+                ProfanityCheckerUtils.checkForProfanity(check,profanityList) { result ->
                     Log.e("result", result)
                     if (result == "true") {
                         runOnUiThread {
