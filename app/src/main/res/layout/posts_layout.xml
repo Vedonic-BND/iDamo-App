@@ -30,17 +30,34 @@
                 android:src="@drawable/profile"
                 android:padding="5dp"/>
 
-            <TextView
-                android:id="@+id/user_name"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="user name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="14dp"
-                android:textColor="@color/colorPrimaryDark"
-                />
+                android:layout_gravity="center_vertical"
+                >
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+                <TextView
+                    android:id="@+id/publishTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name"
+                    android:layout_marginLeft="5dp"
+                    android:text="00/00/0000 - 00:00 mm"
+                    android:textColor="@color/grey_font"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -56,6 +73,7 @@
                     android:src="@drawable/ic_baseline_more_vert_24"
                     app:tint="@color/colorPrimaryDark" />
             </RelativeLayout>
+
         </LinearLayout>
 
 

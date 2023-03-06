@@ -26,6 +26,8 @@ import com.android.iDamoTeam.idamo.CommentsActivity
 import com.android.iDamoTeam.idamo.EditPostActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PostAdapter (private val mContext: Context,
@@ -46,6 +48,7 @@ class PostAdapter (private val mContext: Context,
         var publisher : TextView
         var description : TextView
         var comments : TextView
+        var publishTime: TextView
 
         init {
             profileImage = itemView.findViewById(R.id.user_profile_image_post)
@@ -60,6 +63,7 @@ class PostAdapter (private val mContext: Context,
             publisher = itemView.findViewById(R.id.publisher)
             description = itemView.findViewById(R.id.description)
             comments = itemView.findViewById(R.id.numberOfComments)
+            publishTime = itemView.findViewById(R.id.publishTime)
         }
     }
 
@@ -86,6 +90,8 @@ class PostAdapter (private val mContext: Context,
         isLiked(post.postid, holder.likeButton)
         noOfLikes(post.postid, holder.likes)
         noOfComments(post.postid, holder.comments)
+
+        dateTimePosted(post.postid, holder.publishTime)
 
         holder.description.text = post!!.description
 
@@ -147,6 +153,16 @@ class PostAdapter (private val mContext: Context,
                 Toast.makeText(mContext, "This post is from another user.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun dateTimePosted(postid: String, publishTime: TextView) {
+        val timestamp = postid.toLong()
+        val date = Date(timestamp)
+        val pattern = "MM/dd/yyyy - hh:mm a"
+        val dateFormat = SimpleDateFormat(pattern)
+        val formattedDate = dateFormat.format(date)
+        publishTime.text = formattedDate
     }
 
     private fun deletePost(post: Post) {
