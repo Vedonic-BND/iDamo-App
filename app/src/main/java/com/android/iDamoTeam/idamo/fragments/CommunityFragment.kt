@@ -15,6 +15,7 @@ import com.android.iDamoTeam.idamo.Adapter.PostAdapter
 import com.android.iDamoTeam.idamo.model.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_community.*
 import kotlinx.android.synthetic.main.fragment_you.*
 
 
@@ -83,15 +84,15 @@ class CommunityFragment : Fragment() {
             val size = snapshot?.size()
 
             if ( size == 0 ) {
-                noPost.visibility = View.VISIBLE
+//                noPost.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE
             } else {
-                noPost.visibility = View.GONE
+//                noPost.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
-            val postList = snapshot!!.toObjects(Post::class.java)
-            mPost?.clear()
-            mPost?.addAll(postList)
-            postAdapter?.notifyDataSetChanged()
+                val postList = snapshot!!.toObjects(Post::class.java)
+                mPost?.clear()
+                mPost?.addAll(postList)
+                postAdapter?.notifyDataSetChanged()
             }
         }
     }

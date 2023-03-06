@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,12 +14,20 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.android.iDamoTeam.idamo.*
 import com.android.iDamoTeam.idamo.Adapter.PostAdapter
 import com.android.iDamoTeam.idamo.R
 import com.android.iDamoTeam.idamo.model.Post
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -27,6 +36,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.diagnosis_page.*
+import kotlinx.android.synthetic.main.fragment_community.*
+import kotlinx.android.synthetic.main.fragment_description.*
 import kotlinx.android.synthetic.main.fragment_you.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -60,6 +72,9 @@ class YouFragment : Fragment() {
     private lateinit var userName: String
     private lateinit var profileImage: String
 
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -90,19 +105,10 @@ class YouFragment : Fragment() {
         val create_btn = v.findViewById<Button>(R.id.create_btn)
         val leaflet_container = v.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.leaflet_container)
         val message_button = v.findViewById<Button>(R.id.message_button)
+
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
 
-        recyclerView = v.findViewById(R.id.youRecyclerView)
-        recyclerView.setHasFixedSize(true)
-        val lLManager = LinearLayoutManager(context)
-        lLManager.reverseLayout = true
-        lLManager.stackFromEnd = true
-        recyclerView.layoutManager = lLManager
-
-        mypostList = ArrayList()
-        postAdapter = PostAdapter(requireActivity(), mypostList as ArrayList<Post>)
-        recyclerView.adapter = postAdapter
 
         edit_btn.setOnClickListener{
             val intent = Intent(context, Edit_user_details_page::class.java)
@@ -164,10 +170,55 @@ class YouFragment : Fragment() {
 
 
         userInfo()
-        myPhotos()
 
 
         return v
+    }
+
+
+    data class FragmentData(val title: String)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        tabLayout = requireView().findViewById(R.id.tabLayout)
+        viewPager = requireView().findViewById(R.id.viewPager)
+
+
+        val fragmentDataList =
+            listOf<FragmentData>(
+                FragmentData("My Posts"),
+                FragmentData("Saved")
+            )
+
+        val tabLayoutMediator = TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+
+            tab.setCustomView(R.layout.custom_you_tab_item)
+            val tabTextView = tab.customView?.findViewById<TextView>(R.id.tab_text)
+            tabTextView?.text = fragmentDataList[position].title
+
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab != null && tab.position == position) {
+                        tabTextView?.setTextColor(resources.getColor(R.color.white))
+                        val customTypeface = ResourcesCompat.getFont(requireContext(), R.font.bevan)
+                        tabTextView?.setTypeface(customTypeface, Typeface.BOLD)
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    if (tab != null && tab.position == position) {
+                        tabTextView?.setTextColor(resources.getColor(R.color.grey))
+                        val customTypeface = ResourcesCompat.getFont(requireContext(), R.font.bevan)
+                        tabTextView?.setTypeface(customTypeface, Typeface.NORMAL)
+                    }
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
+        }
+
+        viewPager.adapter = MyPagerAdapter(childFragmentManager, lifecycle ,fragmentDataList)
+        tabLayoutMediator.attach()
     }
 
     private fun totalNumberOfLikes() {
@@ -210,25 +261,7 @@ class YouFragment : Fragment() {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun myPhotos() {
-        val postRef = FirebaseFirestore.getInstance().collection("Posts")
 
-        postRef.whereEqualTo("publisher", profileId).get().addOnSuccessListener {
-            val size = it.size()
-            if ( size == 0 ) {
-                noPost.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
-            } else {
-                noPost.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                val postList = it!!.toObjects(Post::class.java)
-                mypostList.clear()
-                mypostList.addAll(postList)
-                postAdapter.notifyDataSetChanged()
-            }
-        }
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -344,5 +377,98 @@ class YouFragment : Fragment() {
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)?.edit()
         pref?.putString("profileId", firebaseUser.uid)
         pref?.apply()
+    }
+}
+
+class MyPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private val fragmentDataList: List<YouFragment.FragmentData>) : FragmentStateAdapter(fm, lifecycle) {
+    override fun getItemCount(): Int {
+        return fragmentDataList.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> MyPostFragment()
+            1 -> SavedFragment()
+            else -> throw IllegalStateException("Unexpected position: $position")
+        }
+    }
+
+}
+
+class SavedFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+    var database: FirebaseDatabase? = null
+
+    //firestore
+    private lateinit var firestoreDb: FirebaseFirestore
+
+    private lateinit var profileId: String
+    private lateinit var firebaseUser: FirebaseUser
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var postAdapter: PostAdapter
+    private lateinit var mypostList: MutableList<Post>
+
+    private lateinit var userName: String
+    private lateinit var profileImage: String
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val inflater = inflater.inflate(R.layout.my_post_fragment, container, false)
+
+        firebaseUser = FirebaseAuth.getInstance().currentUser!!
+        val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+
+        recyclerView = inflater.findViewById(R.id.youRecyclerView)
+        recyclerView.setHasFixedSize(true)
+        val lLManager = LinearLayoutManager(context)
+        lLManager.reverseLayout = true
+        lLManager.stackFromEnd = true
+        recyclerView.layoutManager = lLManager
+
+        mypostList = ArrayList()
+        postAdapter = PostAdapter(requireActivity(), mypostList as ArrayList<Post>)
+        recyclerView.adapter = postAdapter
+
+
+        myPhotos()
+
+        return inflater
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun myPhotos() {
+        val postRef = FirebaseFirestore.getInstance().collection("Posts")
+
+        postRef.whereEqualTo("publisher", profileId).get().addOnSuccessListener {
+            val size = it.size()
+            if ( size == 0 ) {
+                noPost.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+            } else {
+                noPost.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                val postList = it!!.toObjects(Post::class.java)
+                mypostList.clear()
+                mypostList.addAll(postList)
+                postAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+}
+
+class MyPostFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.saved_fragment, container, false)
     }
 }
