@@ -175,23 +175,27 @@ class Diagnosis_page: AppCompatActivity() {
                         .setText(R.string.downyMildewDiseaseTitle)
                     view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.downyMildewDiseaseDescription)
+                    view.findViewById<TextView>(R.id.diseaseDesc).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Black Spots/Leaf Scars" -> {
                     view.findViewById<TextView>(R.id.diseaseName)
                         .setText(R.string.scarsSpotsDiseaseTitle)
                     view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.scarsSpotsDiseaseDescription)
+                    view.findViewById<TextView>(R.id.diseaseDesc).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Shot Hole" -> {
                     view.findViewById<TextView>(R.id.diseaseName)
                         .setText(R.string.shotHoleDiseaseTitle)
                     view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.shotHoleDiseaseDescription)
+                    view.findViewById<TextView>(R.id.diseaseDesc).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Healthy Leaf" -> {
                     view.findViewById<TextView>(R.id.diseaseName).setText(R.string.healthyLeafTitle)
                     view.findViewById<TextView>(R.id.confidence).text = "Confidence: $confidence"
                     view.findViewById<TextView>(R.id.diseaseDesc).setText(R.string.healthyLeafDescription)
+                    view.findViewById<TextView>(R.id.diseaseDesc).movementMethod = LinkMovementMethod.getInstance()
                 }
             }
         }
@@ -202,21 +206,25 @@ class Diagnosis_page: AppCompatActivity() {
             requireArguments().getString("diseaseName") ?: "There's some kind of error. Please try again later."
         }
 
+        @SuppressLint("CutPasteId")
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
             when (diseaseName) {
                 "Downy Mildew" -> {
                     view.findViewById<TextView>(R.id.symptoms).setText(R.string.downyMildewDiseaseSymptoms)
+                    view.findViewById<TextView>(R.id.symptoms).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Black Spots/Leaf Scars" -> {
                     view.findViewById<TextView>(R.id.symptoms).setText(R.string.scarsSpotsDiseaseSymptoms)
+                    view.findViewById<TextView>(R.id.symptoms).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Shot Hole" -> {
                     view.findViewById<TextView>(R.id.symptoms).setText(R.string.shotHoleDiseaseSymptoms)
+                    view.findViewById<TextView>(R.id.symptoms).movementMethod = LinkMovementMethod.getInstance()
                 }
                 "Healthy Leaf" -> {
-                    view.findViewById<TextView>(R.id.symptoms).visibility = View.GONE
+                    view.findViewById<TextView>(R.id.symptomsTitle).visibility = View.GONE
                     view.findViewById<TextView>(R.id.symptoms).visibility = View.GONE
                 }
             }

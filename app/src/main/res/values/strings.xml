@@ -68,9 +68,11 @@
     <string name="downyMildewDiseaseTitle">Downey Mildew</string>
     <string name="downyMildewDiseaseDescription">\t\tA type of oomycetes or water mold, downy mildew causes the growth of gray or white, as well as the yellowing and wilting of leaves. A harmful pathogen that develops on the underside of leaves that can cover the entire leaf and causes it to turn brown and dry up.
         \n\n\t\tHeavy infection of downy mildew can devastate a crop and kill most of the plants within a week. It can spread everywhere stopping the plant from photosynthesizing on these yellow or brown spots.
+        \n\n\n<a href="https://ipm.ucanr.edu/agriculture/lettuce/downy-mildew/"><font fgcolor="#00FFFF">~ University of California Agriculture &amp; Natural Resources</font></a>
     </string>
     <string name="downyMildewDiseaseSymptoms">\t\tDowny mildew causes light green to yellow spots found on the upper surface of leaves and hemmed in by the leaf veins. Sporulation or downy fuzz can also be seen on the underside of the leaf when the weather is wet or humid.
     \n\n\t\tDamp, cool conditions and moisture on leaves causes the disease to arise and can lead to stunted growth and reduced yields. Downy mildews are air water borne pathogens and can spread progressively if left unattended.
+    \n\n\n<a href="https://ipm.ucanr.edu/agriculture/lettuce/downy-mildew/"><font fgcolor="#00FFFF">~ University of California Agriculture &amp; Natural Resources</font></a>
     </string>
     <string name="downyMildewDiseaseSolution">\t\tThe following guideline are for the treatment and prevention of Downy Mildew.
     \n\n\n<b><font fgcolor="#FFFFFF">Prevention:</font></b>
@@ -84,14 +86,12 @@
     \n\n\t1. Mix 1 tablespoon of baking soda and 1/2 teaspoon of liquid soap and 1 gallon of water in a spray bottle.
     \n\n\t2. Gently spray the solution on both top and bottom part of the leaves.
     \n\n\t3. Spray once for three to four weeks.
+    \n\n\n<a href="https://www.nature-and-garden.com/gardening/treatement-downy-mildew-blight.html"><font fgcolor="#00FFFF">~ Nature &amp; Garden</font></a>
     \n\n\t <font fgcolor="#FFFFFF">* <i>Use soap such as Castile, do not use detergent.</i></font>
-    \n\n\nB. Milk Solution:
-    \n\n\t1. Mix 1 part milk to 2 – 3 parts water in a spray bottle.
-    \n\n\t2. Gently spray the solution on both top and bottom part of the leaves.
-    \n\n\t3. Spray once for three to four weeks.
-    \n\n\nC. Neem Oil:
-    \n\n\t1. Spray the leaves with neem oil once for three to four weeks.
-    \n\n\n<a href="https://www.wikihow.com/Deal-with-Black-Spot-Leaf-Disease"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    \n\n\nB. Fungicides:
+    \n\n\t1. Use organic fungicides, follow directions regarding application.
+    \n\n\t2. Apply fungicide early to prevent outbreaks.
+    \n\n\n<a href="https://www.nature-and-garden.com/gardening/treatement-downy-mildew-blight.html"><font fgcolor="#00FFFF">~ Nature &amp; Garden</font></a>
     </string>
 
 
@@ -99,9 +99,11 @@
     <string name="scarsSpotsDiseaseTitle">Leaf Scars / Black Spots</string>
     <string name="scarsSpotsDiseaseDescription">\t\tA round, black spot with fringed margins that grows up to ½ inch in diameter are caused by a fungus. This disease is found on flowers, fruits, and leaves, it commonly affects roses and other ornamental and garden plants.
         \n\n\t\tThe spots weaken the plant causing stress that may interrupt photosynthesis. These spots develop only on the upper surface of the leaves and the surrounding area turns yellow.
+        \n\n\n<a href="https://extension.umn.edu/plant-diseases/leaf-spot-diseases-trees-and-shrubs"><font fgcolor="#00FFFF">~ University of Minnesota Extension</font></a>
     </string>
     <string name="scarsSpotsDiseaseSymptoms">\t\tBlack spots come in different form of dark, round leaf spots with irregular feathered margins. The spots form a yellow edge or ‘halo’ around the infected area of the leaf that can expand and cover the entire leaf.
     \n\n\t\tThe lowest parts of the plants are mostly infected first and can worsen overtime when left unchecked. Usually, black spots may arise when the weather is hot and humid, and leaves are moist for at least 6 hours.
+    \n\n\n<a href="https://extension.umn.edu/plant-diseases/leaf-spot-diseases-trees-and-shrubs"><font fgcolor="#00FFFF">~ University of Minnesota Extension</font></a>
     </string>
     <string name="scarsSpotsDiseaseSolution">\t\tThe following guideline are for the treatment and prevention of Leaf Scar/Black Spots.
     \n\n\n<b><font fgcolor="#FFFFFF">Prevention:</font></b>
@@ -114,17 +116,20 @@
     \n\n\t1. Combine 1-part diary milk to 2-parts water in a spray bottle.
     \n\n\t2. Spray the leaves once each week.
     \n\n\t <font fgcolor="#FFFFFF">* <i>Non-Diary milk substitutes won’t work.</i></font>
+    \n\n\n<a href="https://extension.umn.edu/plant-diseases/leaf-spot-diseases-trees-and-shrubs"><font fgcolor="#00FFFF">~ University of Minnesota Extension</font></a>
     \n\n\nB. Baking Soda Solution:
     \n\n\t1. Mix 1 tablespoon of baking soda, 2.5 tablespoon of vegetable oil, 1 teaspoon of liquid soap, and 1 gallon of water in a spray bottle.
     \n\n\t2. Spray a small test area with the solution before spraying the entire plant.
     \n\n\t3. If burning if absent spray the leaves once every two weeks.
     \n\n\t <font fgcolor="#FFFFFF">* <i>Use liquid soap, not detergent.</i></font>
+    \n\n\n<a href="https://www.wikihow.com/Deal-with-Black-Spot-Leaf-Disease"><font fgcolor="#00FFFF">~ WikiHow</font></a>
     \n\n\nC. Neem Oil:
     \n\n\t1. Spray the leaves with neem oil once every two weeks.
+    \n\n\n<a href="https://www.wikihow.com/Deal-with-Black-Spot-Leaf-Disease"><font fgcolor="#00FFFF">~ WikiHow</font></a>
     \n\n\nD. Fungicides:
     \n\n\t1. Use organic fungicides as a last resort, follow directions regarding application.
     \n\n\t2. Apply fungicide early to prevent outbreaks.
-    \n\n\n<a href="https://growfully.com/downy-mildew/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    \n\n\n<a href="https://www.wikihow.com/Deal-with-Black-Spot-Leaf-Disease"><font fgcolor="#00FFFF">~ WikiHow</font></a>
     </string>
 
 
@@ -132,9 +137,11 @@
     <string name="shotHoleDiseaseTitle">Shot Hole</string>
     <string name="shotHoleDiseaseDescription">\t\tCoryneum Blight commonly known as Shot Hole is caused by a fungal pathogen Wilsonomyces Carpophilus. It often affects fruits, buds, and stems, but is most obvious on the leaves. Fruit bearing trees from the genus of Prunus such as peaches, apricots, cherries, plums, and nectarines are common to shot hole disease.
         \n\n\t\tWet and humid weather contributes to the spread of shot hole disease. Inadequate growing circumstances, environmental stress, and insects consuming foliage are just a few of the causes of the holes appearing in leaves.
+        \n\n\n<a href="https://ipm.ucanr.edu/PMG/GARDEN/FRUIT/DISEASE/shothole.html"><font fgcolor="#00FFFF">~ University of California Agriculture &amp; Natural Resources</font></a>
     </string>
     <string name="shotHoleDiseaseSymptoms">\t\tShot hole first appear as purple or red spots that shortly expands and turn into brown patches that eventually falls off, leaving multiple round holes on the leaf. Each hole frequently has a thin yellow or brown ring surrounding the hole. The fungal disease also causes premature leaf drops and scabby lesions on the leaf.
-        \n\n\t\tThe fungal spores spreads in splashing water, and common during warm, foggy, or rainy weather. Shot hole is most severe during mid to late summer where weather tends to be wet and humid.
+    \n\n\t\tThe fungal spores spreads in splashing water, and common during warm, foggy, or rainy weather. Shot hole is most severe during mid to late summer where weather tends to be wet and humid.
+    \n\n\n<a href="https://ipm.ucanr.edu/PMG/GARDEN/FRUIT/DISEASE/shothole.html"><font fgcolor="#00FFFF">~ University of California Agriculture &amp; Natural Resources</font></a>
     </string>
     <string name="shotHoleDiseaseSolution">\t\t<b>The following guideline are for the treatment and prevention of Shot Hole.</b>
     \n\n\n<b><font fgcolor="#FFFFFF">Prevention:</font></b>
@@ -147,15 +154,17 @@
     \n\n\t1. Mix 1 tablespoon of soap with 1 gallon of water in a spray bottle.
     \n\n\t2. Gently spray the solution on both top and bottom part of the leaves.
     \n\n\t3. Repeat treatment every 7 – 10 days.
+    \n\n\n<a href="https://thefarmatgreenvillage.com/shot-hole-disease-treatment-and-prevention/"><font fgcolor="#00FFFF">~ The Farm at Green Village</font></a>
     \n\n\nB. Baking Soda Solution:
     \n\n\t1. Mix 1 tablespoon of baking soda with 1 gallon of water in a spray bottle.
     \n\n\t2. Gently spray the solution on both top and bottom part of the leaves.
     \n\n\t3. Repeat treatment every 7 – 10 days.
+    \n\n\n<a href="https://thefarmatgreenvillage.com/shot-hole-disease-treatment-and-prevention/"><font fgcolor="#00FFFF">~ The Farm at Green Village</font></a>
     \n\n\nC. Neem Oil Solution:
     \n\n\t1. Mix 1 – 2 teaspoons of neem oil with 1 gallon of water in a spray bottle.
     \n\n\t2. Gently spray the solution on both top and bottom part of the leaves.
     \n\n\t3. Repeat treatment every 7 – 10 days.
-    \n\n\n<a href="https://www.davey.com/insect-disease-resource-center/shot-hole-disease/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    \n\n\n<a href="https://thefarmatgreenvillage.com/shot-hole-disease-treatment-and-prevention/"><font fgcolor="#00FFFF">~ The Farm at Green Village</font></a>
     </string>
 
 
@@ -167,6 +176,7 @@
     \n\n\t• Open, rather than curled, growth
     \n\n\t• Upright Appearance
     \n\n\n<font fgcolor="#00FFFF"><b>Tip:</b> </font><i>Remember to look at the underside of your plants\’ leaves as well — many damaging insects hide in those hard-to-see places.</i>
+    \n\n\n<a href="https://kellogggarden.com/blog/gardening/healthy-leaves-healthy-plant/"><font fgcolor="#00FFFF">~ Kellogg Garden</font></a>
     </string>
     <string name="healthyLeafDiseaseSolution">\t\tFollow these steps to keep your plants healthy:
     \n\n1. Plant in a fertile, permeable, loamy, and right pH soil to build a strong and healthy plant.
@@ -176,7 +186,8 @@
     \n\n5. Make sure you mulch your soil beds every year. Mulch can provide root insulation for plants during the extreme summer heat. Mulch will also help to prevent weed growth. It will also retain moisture in the soil.
     \n\n6. Keep weeds out. Like all other plants, ornamentals too need sun for their healthy growth. Although mulching is a good way to keep weeds away from your ornamental beds, there are other options too. These include landscape fabric, ornamental bedding treatments, and hand pulling of weeds.
     \n\n7. Do not overcrowd your plants. Proper spacing can provide proper air circulation around plants. Choosing the right pot for container gardening must also be considered.
-    \n\n\n<a href="https://unlimitedgreens.com/7-amazing-tips-on-how-to-care-for-ornamental-plants/"><font fgcolor="#00FFFF">Click the link here for more information.</font></a>
+    \n\n\n<a href="https://balconygardenweb.com/5-essential-ways-to-keep-your-plants-healthy-productive/"><font fgcolor="#00FFFF">~ Balcony Garden Web</font></a>
+    \n\n\n<a href="https://unlimitedgreens.com/7-amazing-tips-on-how-to-care-for-ornamental-plants/"><font fgcolor="#00FFFF">~ Unlimited Greens</font></a>
     </string>
     <string name="library">Library</string>
 </resources>
