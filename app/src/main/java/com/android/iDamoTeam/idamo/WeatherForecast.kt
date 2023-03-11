@@ -59,7 +59,12 @@ class WeatherForecast : AppCompatActivity() {
         val intent = intent
         val currentCity = intent.getStringExtra("location")
 
-        getWeatherInfo(currentCity!!)
+        try {
+            getWeatherInfo(currentCity!!)
+        }catch (e: Exception) {
+            Toast.makeText(this, "There might be error in Weather. Try again later.", Toast.LENGTH_SHORT).show()
+            throw e
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
@@ -133,7 +138,8 @@ class WeatherForecast : AppCompatActivity() {
                 }
 
             } catch (e: JSONException) {
-                e.printStackTrace()
+                Toast.makeText(this, "There might be error in Weather. Try again later.", Toast.LENGTH_SHORT).show()
+                throw e
             }
 
             Log.d("Response", str)
@@ -149,8 +155,9 @@ class WeatherForecast : AppCompatActivity() {
             uv.text = "UV Index: $uvIndex"
         }, { error ->
 
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "There might be error in Weather. Try again later.", Toast.LENGTH_SHORT).show()
             Log.d("Response", error.message.toString())
+            throw error
         })
 
         requestQueue.add(jsonObjectRequest)
