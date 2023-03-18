@@ -210,7 +210,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun classifyImage(imageBitmap: Bitmap, filePath: Uri) {
-        val model = LeafClassification.newInstance(requireContext())
+        val model = MnetModelAllLeaves.newInstance(requireContext())
 
         // Creates inputs for reference.
         val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
@@ -253,7 +253,7 @@ class DashboardFragment : Fragment() {
         when (plantName) {
             "Anthurium" -> {
                 Log.e("PlantName: ", plantName)
-                val model = AnthuriumDiseaseModel.newInstance(requireContext())
+                val model = MnetModelAnthurium.newInstance(requireContext())
 
                 // Creates inputs for reference.
                 val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
@@ -299,7 +299,7 @@ class DashboardFragment : Fragment() {
             }
             "Celosia" -> {
                 Log.e("PlantName: ", plantName)
-                val model = CelosiaDiseaseModel.newInstance(requireContext())
+                val model = MnetModelCelosia.newInstance(requireContext())
 
                 // Creates inputs for reference.
                 val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
@@ -345,7 +345,7 @@ class DashboardFragment : Fragment() {
             }
             "Mayana" -> {
                 Log.e("PlantName: ", plantName)
-                val model = MayanaDiseaseModel.newInstance(requireContext())
+                val model = MnetModelMayana.newInstance(requireContext())
 
                 // Creates inputs for reference.
                 val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
@@ -391,7 +391,7 @@ class DashboardFragment : Fragment() {
             }
             "Rose" -> {
                 Log.e("PlantName: ", plantName)
-                val model = RoseDiseaseModel.newInstance(requireContext())
+                val model = MnetModelRose.newInstance(requireContext())
 
                 // Creates inputs for reference.
                 val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
@@ -437,7 +437,7 @@ class DashboardFragment : Fragment() {
             }
             "Sunflower" -> {
                 Log.e("PlantName: ", plantName)
-                val model = SunflowerDiseaseModel.newInstance(requireContext())
+                val model = MnetModelSunflower.newInstance(requireContext())
 
                 // Creates inputs for reference.
                 val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
