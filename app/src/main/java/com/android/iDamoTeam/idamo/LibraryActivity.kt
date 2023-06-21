@@ -24,8 +24,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.diagnosis_page.*
 import kotlinx.android.synthetic.main.fragment_description.*
+import kotlinx.android.synthetic.main.fragment_library.carouselView
 import org.w3c.dom.Text
 
 class LibraryActivity : AppCompatActivity() {
@@ -130,6 +133,8 @@ class LibraryActivity : AppCompatActivity() {
 
         data class FragmentData(val title: String, val disName: String)
 
+        var carouselView: CarouselView? = null
+
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             binding = FragmentInnerLibraryBinding.inflate(inflater, container, false)
             return binding.root
@@ -169,16 +174,75 @@ class LibraryActivity : AppCompatActivity() {
 
             when (diseaseName) {
                 "Downy Mildew" -> {
-                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.downey_mildew)
+//                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.downey_mildew)
+                    val dmArray: ArrayList<Int> = ArrayList()
+                    dmArray.add(R.drawable.anthurium_dm)
+                    dmArray.add(R.drawable.celosia_dm)
+                    dmArray.add(R.drawable.mayana_dm)
+                    dmArray.add(R.drawable.rose_dm)
+                    dmArray.add(R.drawable.sunflower_dm)
+
+                    val imageListener = ImageListener { position, imageView ->
+                        imageView.setImageResource(dmArray[position])
+                    }
+
+
+                    carouselView = view.findViewById(R.id.diseaseImage)
+                    carouselView!!.pageCount = dmArray.size
+                    carouselView!!.setImageListener(imageListener)
                 }
                 "Black Spots/Leaf Scars" -> {
-                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.spots_scars)
+//                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.spots_scars)
+                    val bsArray: ArrayList<Int> = ArrayList()
+                    bsArray.add(R.drawable.anthurium_bs)
+                    bsArray.add(R.drawable.celosia_bs)
+                    bsArray.add(R.drawable.mayana_bs)
+                    bsArray.add(R.drawable.rose_bs)
+                    bsArray.add(R.drawable.sunflower_bs)
+
+                    val imageListener = ImageListener { position, imageView ->
+                        imageView.setImageResource(bsArray[position])
+                    }
+
+
+                    carouselView = view.findViewById(R.id.diseaseImage)
+                    carouselView!!.pageCount = bsArray.size
+                    carouselView!!.setImageListener(imageListener)
                 }
                 "Shot Hole" -> {
-                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.shot_hole)
+//                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.shot_hole)
+                    val shArray: ArrayList<Int> = ArrayList()
+                    shArray.add(R.drawable.anthurium_sh)
+                    shArray.add(R.drawable.mayana_sh)
+                    shArray.add(R.drawable.rose_sh)
+                    shArray.add(R.drawable.sunflower_sh)
+
+                    val imageListener = ImageListener { position, imageView ->
+                        imageView.setImageResource(shArray[position])
+                    }
+
+
+                    carouselView = view.findViewById(R.id.diseaseImage)
+                    carouselView!!.pageCount = shArray.size
+                    carouselView!!.setImageListener(imageListener)
                 }
                 "Healthy Leaf" -> {
-                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.healthy)
+//                    view.findViewById<ImageView>(R.id.diseaseImage).setImageResource(R.drawable.healthy)
+                    val hArray: ArrayList<Int> = ArrayList()
+                    hArray.add(R.drawable.anthurium_h)
+                    hArray.add(R.drawable.celosia_h)
+                    hArray.add(R.drawable.mayana_h)
+                    hArray.add(R.drawable.rose_h)
+                    hArray.add(R.drawable.sunflower_h)
+
+                    val imageListener = ImageListener { position, imageView ->
+                        imageView.setImageResource(hArray[position])
+                    }
+
+
+                    carouselView = view.findViewById(R.id.diseaseImage)
+                    carouselView!!.pageCount = hArray.size
+                    carouselView!!.setImageListener(imageListener)
                 }
             }
 

@@ -5,19 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/diseaseImage"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="300dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:elevation="1dp"-->
+<!--        android:padding="1dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:cropToPadding="true"-->
+<!--        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <com.synnapps.carouselview.CarouselView
         android:id="@+id/diseaseImage"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:elevation="1dp"
-        android:padding="1dp"
-        android:scaleType="centerCrop"
-        android:cropToPadding="true"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+        app:pageColor="@color/black"
+        app:fillColor="@color/colorAccent"
+        app:slideInterval="5000"
+        app:radius="3dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
     <LinearLayout
