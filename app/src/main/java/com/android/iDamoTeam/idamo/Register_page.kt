@@ -36,6 +36,7 @@ class Register_page : AppCompatActivity() {
     private var password = ""
     private var name = ""
     private var bio = ""
+    private var age = ""
 
     private companion object {
         private const val TAG = "LoginActivity"
@@ -78,6 +79,7 @@ class Register_page : AppCompatActivity() {
         password = user_password.text.toString().trim()
         name = user_name.text.toString().trim()
         bio = user_bio_reg.text.toString().trim()
+        age = user_age.text.toString().trim()
 
         //validate data
         if (TextUtils.isEmpty((name))) {
@@ -94,6 +96,12 @@ class Register_page : AppCompatActivity() {
         }else if (password.length < 6) {
             //password is less than 6 characters
             user_password.error = "Your password must contain atleast 6 characters"
+        }else if(TextUtils.isEmpty(age)){
+            //No age entered
+            user_age.error = "Please Enter Your Name"
+        }else if(age.toInt() < 18){
+            //Basta di pwede minor
+            user_age.error = "Only 18 Yrs Old and Above can register"
         }else{
             //data is validated, begin login
             firebaseSignUp()
@@ -119,6 +127,7 @@ class Register_page : AppCompatActivity() {
                     userMap["email"] = email
                     userMap["bio"] = bio
                     userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/idamo-4ea09.appspot.com/o/Default%20Images%2Fuser_no-frame.png?alt=media&token=7a16341d-e597-465a-ab77-bbbdfa7ad480"
+                    userMap["age"] = age.toString()
 
                     val userRef = firestoreDb.collection("profile").document(currentUserID)
                     userRef.set(userMap)

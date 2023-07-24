@@ -82,6 +82,7 @@
         android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/transparent"
@@ -112,6 +113,26 @@
                     android:drawableStart="@drawable/ic_person"
                     android:drawablePadding="6dp"
                     android:hint="@string/name"
+                    android:inputType="text"
+                    android:drawableTint="@color/colorPrimary"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--         _For debugging - add age textbox-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                app:boxBackgroundColor="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/user_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="6dp"
+                    android:hint="Age"
                     android:inputType="text"
                     android:drawableTint="@color/colorPrimary"/>
             </com.google.android.material.textfield.TextInputLayout>
