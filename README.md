@@ -28,7 +28,7 @@ The general intent of this is to develop an Android-based mobile application tha
 width="400"
     hspace="10" vspace="10">](/Screenshots.png)
 
-<br />
+</br>
 
 ## Permissions
 
