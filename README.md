@@ -59,7 +59,7 @@ width="200"
 [<img src="/readme/Wallabag%20Article%20View.png" align="center"
 width="200"
     hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
-<!---
+
 ## Permissions
 
 On Android versions prior to Android 6.0, wallabag requires the following permissions:
@@ -81,5 +81,3 @@ wallabag app is a free and open source project developed by volunteers. Any cont
 
 This application is released under GNU GPLv3 (see [LICENSE](LICENSE)).
 Some of the used libraries are released under different licenses.
-
---->
