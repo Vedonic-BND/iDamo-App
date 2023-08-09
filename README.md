@@ -13,7 +13,7 @@ iDamo is available on our Google Drive.
 <p align="left">
 <a href="https://drive.google.com/file/d/11dc337tSHr94Kdw9rJlKOseBAnsT7JiF/view?usp=sharing">
     <img alt="Get it on Google our Google Drive"
-        height="80"
+        height="50"
         src="https://pngimg.com/uploads/google_drive/google_drive_PNG7.png" />
 </a> 
 </p>
@@ -25,8 +25,10 @@ The general intent of this is to develop an Android-based mobile application tha
 
 ## Screenshots
 [<img src="/Screenshots.png" align="left"
-width="200"
+width="400"
     hspace="10" vspace="10">](/Screenshots.png)
+
+<br />
 
 ## Permissions
 
