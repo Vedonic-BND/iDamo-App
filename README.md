@@ -10,7 +10,7 @@ You need an iDamo account first, which you are going to use in this app.
 Get the app on 
 
 
-<!---
+
 wallabag is available on the Google Play Store and F-Droid.
 
 
@@ -19,7 +19,7 @@ wallabag is available on the Google Play Store and F-Droid.
     <img alt="Get it on Google Play"
         height="80"
         src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>  
+</a> 
 <a href="https://f-droid.org/app/fr.gaulupeau.apps.InThePoche">
     <img alt="Get it on F-Droid"
         height="80"
@@ -59,7 +59,7 @@ width="200"
 [<img src="/readme/Wallabag%20Article%20View.png" align="center"
 width="200"
     hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
-
+<!---
 ## Permissions
 
 On Android versions prior to Android 6.0, wallabag requires the following permissions:
